@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belia Mishpat — Sistema Jurídico para Escritórios de Advocacia</title>
+  <meta name="description" content="Sistema jurídico completo para escritórios de advocacia. Processos ilimitados, gestão de clientes, prazos, financeiro e muito mais. Teste grátis por 14 dias.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-gradient {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.15), transparent);
+    }
+    .card-glow:hover {
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.08);
+    }
+    .pricing-popular {
+      box-shadow: 0 0 0 2px #4f46e5, 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 z-50 w-full border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div class="flex items-center gap-2">
+        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold">B</div>
+        <span class="text-lg font-semibold">Belia <span class="text-brand-400">Mishpat</span></span>
+      </div>
+      <div class="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
+        <a href="#recursos" class="transition hover:text-zinc-100">Recursos</a>
+        <a href="#planos" class="transition hover:text-zinc-100">Planos</a>
+        <a href="#trial" class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-500">
+          Teste Grátis
+        </a>
+      </div>
+      <a href="#trial" class="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-500 md:hidden">
+        Teste Grátis
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-gradient relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-32">
+    <div class="mx-auto max-w-6xl px-6 text-center">
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 px-4 py-1.5 text-xs text-zinc-400">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+        Processos ilimitados em todos os planos
+      </div>
+      <h1 class="mx-auto max-w-4xl text-4xl font-extrabold leading-tight tracking-tight md:text-6xl md:leading-tight">
+        O sistema jurídico que seu
+        <span class="gradient-text">escritório merece</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-400 md:text-xl">
+        Gerencie processos, clientes, prazos, audiências e financeiro em uma única plataforma.
+        Feito para escritórios de advocacia de médio porte.
+      </p>
+      <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <a href="#trial" class="w-full rounded-xl bg-brand-600 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-500 sm:w-auto">
+          Começar teste grátis
+        </a>
+        <a href="#recursos" class="w-full rounded-xl border border-zinc-700 px-8 py-3.5 text-base font-medium text-zinc-300 transition hover:border-zinc-500 hover:text-white sm:w-auto">
+          Ver recursos
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-zinc-500">14 dias grátis. Sem cartão de crédito.</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="recursos" class="border-t border-zinc-800/50 py-20 md:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold md:text-4xl">Tudo que seu escritório precisa</h2>
+        <p class="mt-4 text-lg text-zinc-400">Módulos completos para a rotina jurídica do dia a dia.</p>
+      </div>
+
+      <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Feature Card -->
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-600/10">
+            <svg class="h-5 w-5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Gestão de Processos</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Controle completo de processos com partes, fases, andamentos e prazos. Processos ilimitados em todos os planos.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600/10">
+            <svg class="h-5 w-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Clientes PF e PJ</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Cadastro completo de clientes pessoa física e jurídica com endereço, documentos e histórico de atendimentos.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600/10">
+            <svg class="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Prazos e Audiências</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Controle de prazos fatais, internos e tarefas. Audiências de conciliação, instrução e julgamento com alertas.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-600/10">
+            <svg class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Financeiro</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Dois painéis independentes: financeiro do escritório e do advogado. Categorias, relatórios e controle de honorários.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-rose-600/10">
+            <svg class="h-5 w-5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Documentos</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Upload, preview e organização de documentos por processo. Templates para extração automática de dados de PDFs.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-violet-600/10">
+            <svg class="h-5 w-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Agenda</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Calendário integrado com visualização por mês, semana e dia. Eventos manuais e sincronização com audiências e prazos.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-600/10">
+            <svg class="h-5 w-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">RBAC e Auditoria</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Controle de permissões por role (admin, advogado, estagiário, financeiro). Log de auditoria de todas as ações.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-600/10">
+            <svg class="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Atendimentos</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Registro de interações com clientes: reuniões, ligações, e-mails. Histórico completo vinculado ao cliente.</p>
+        </div>
+
+        <div class="card-glow rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 transition">
+          <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-600/10">
+            <svg class="h-5 w-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971Z"/></svg>
+          </div>
+          <h3 class="mt-4 text-base font-semibold">Previdenciário</h3>
+          <p class="mt-2 text-sm leading-relaxed text-zinc-400">Módulo especializado: protocolo INSS, tipo de benefício, DER, DIB, CIDs e perícias médicas, sociais e judiciais.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="planos" class="border-t border-zinc-800/50 py-20 md:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold md:text-4xl">Planos simples e transparentes</h2>
+        <p class="mt-4 text-lg text-zinc-400">Processos ilimitados em todos os planos. Pague apenas pelo tamanho da sua equipe.</p>
+      </div>
+
+      <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+        <!-- Essencial -->
+        <div class="flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+          <h3 class="text-sm font-medium uppercase tracking-wide text-zinc-400">Essencial</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="text-4xl font-bold">R$49</span>
+            <span class="text-sm text-zinc-500">/mês</span>
+          </div>
+          <ul class="mt-6 flex-1 space-y-3 text-sm text-zinc-300">
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Processos ilimitados
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Até 2 usuários
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              5 GB de armazenamento
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Todos os módulos
+            </li>
+          </ul>
+          <a href="#trial" class="mt-6 block rounded-lg border border-zinc-700 py-2.5 text-center text-sm font-medium transition hover:border-zinc-500 hover:text-white">
+            Começar grátis
+          </a>
+        </div>
+
+        <!-- Profissional -->
+        <div class="pricing-popular relative flex flex-col rounded-xl bg-zinc-900 p-6">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-3 py-0.5 text-xs font-semibold text-white">
+            Popular
+          </div>
+          <h3 class="text-sm font-medium uppercase tracking-wide text-zinc-400">Profissional</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="text-4xl font-bold">R$99</span>
+            <span class="text-sm text-zinc-500">/mês</span>
+          </div>
+          <ul class="mt-6 flex-1 space-y-3 text-sm text-zinc-300">
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Processos ilimitados
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Até 5 usuários
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              15 GB de armazenamento
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Todos os módulos
+            </li>
+          </ul>
+          <a href="#trial" class="mt-6 block rounded-lg bg-brand-600 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-brand-500">
+            Começar grátis
+          </a>
+        </div>
+
+        <!-- Escritório -->
+        <div class="flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+          <h3 class="text-sm font-medium uppercase tracking-wide text-zinc-400">Escritório</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="text-4xl font-bold">R$199</span>
+            <span class="text-sm text-zinc-500">/mês</span>
+          </div>
+          <ul class="mt-6 flex-1 space-y-3 text-sm text-zinc-300">
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Processos ilimitados
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Até 15 usuários
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              30 GB de armazenamento
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Todos os módulos
+            </li>
+          </ul>
+          <a href="#trial" class="mt-6 block rounded-lg border border-zinc-700 py-2.5 text-center text-sm font-medium transition hover:border-zinc-500 hover:text-white">
+            Começar grátis
+          </a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+          <h3 class="text-sm font-medium uppercase tracking-wide text-zinc-400">Enterprise</h3>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="text-4xl font-bold">R$399</span>
+            <span class="text-sm text-zinc-500">/mês</span>
+          </div>
+          <ul class="mt-6 flex-1 space-y-3 text-sm text-zinc-300">
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Processos ilimitados
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Usuários ilimitados
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              50 GB de armazenamento
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4 shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+              Suporte prioritário
+            </li>
+          </ul>
+          <a href="#trial" class="mt-6 block rounded-lg border border-zinc-700 py-2.5 text-center text-sm font-medium transition hover:border-zinc-500 hover:text-white">
+            Começar grátis
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Signup / Trial -->
+  <section id="trial" class="border-t border-zinc-800/50 py-20 md:py-28">
+    <div class="mx-auto max-w-xl px-6">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold md:text-4xl">Comece seu teste grátis</h2>
+        <p class="mt-4 text-zinc-400">14 dias grátis no plano Essencial. Sem cartão de crédito.</p>
+      </div>
+
+      <form id="signup-form" class="mt-10 space-y-5">
+        <div>
+          <label for="firm_name" class="mb-1.5 block text-xs font-medium text-zinc-300">Nome do Escritório</label>
+          <input type="text" id="firm_name" name="firm_name" required minlength="2" maxlength="255"
+            placeholder="Ex: Silva & Associados"
+            class="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="admin_name" class="mb-1.5 block text-xs font-medium text-zinc-300">Seu Nome</label>
+            <input type="text" id="admin_name" name="admin_name" required minlength="2" maxlength="255"
+              placeholder="João Silva"
+              class="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+          </div>
+          <div>
+            <label for="phone" class="mb-1.5 block text-xs font-medium text-zinc-300">Telefone <span class="text-zinc-500">(opcional)</span></label>
+            <input type="tel" id="phone" name="phone" maxlength="15"
+              placeholder="(11) 99999-9999"
+              class="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+          </div>
+        </div>
+
+        <div>
+          <label for="admin_email" class="mb-1.5 block text-xs font-medium text-zinc-300">Email</label>
+          <input type="email" id="admin_email" name="admin_email" required
+            placeholder="seu@email.com"
+            class="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+        </div>
+
+        <div>
+          <label for="admin_password" class="mb-1.5 block text-xs font-medium text-zinc-300">Senha</label>
+          <input type="password" id="admin_password" name="admin_password" required minlength="6"
+            placeholder="Mínimo 6 caracteres"
+            class="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+        </div>
+
+        <!-- Error message -->
+        <div id="signup-error" class="hidden rounded-lg bg-red-500/10 p-3">
+          <p id="signup-error-msg" class="text-sm font-medium text-red-400"></p>
+          <ul id="signup-error-list" class="mt-1 list-disc pl-4 text-xs text-red-400"></ul>
+        </div>
+
+        <button type="submit" id="signup-btn"
+          class="w-full rounded-lg bg-brand-600 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed">
+          Começar teste grátis
+        </button>
+
+        <p class="text-center text-xs text-zinc-500">
+          Processos ilimitados em todos os planos.
+        </p>
+      </form>
+
+      <!-- Success message (hidden by default) -->
+      <div id="signup-success" class="hidden mt-10 text-center">
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10">
+          <svg class="h-8 w-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold">Ambiente pronto!</h3>
+        <p id="success-message" class="mt-2 text-zinc-400"></p>
+        <div id="success-details" class="mt-6 mx-auto max-w-sm rounded-lg border border-zinc-800 bg-zinc-900/50 p-4 text-sm">
+        </div>
+        <p class="mt-4 text-sm text-zinc-500">Use o email e senha cadastrados para acessar o sistema.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/50 py-10">
+    <div class="mx-auto max-w-6xl px-6 text-center">
+      <div class="flex items-center justify-center gap-2">
+        <div class="flex h-6 w-6 items-center justify-center rounded bg-brand-600 text-xs font-bold">B</div>
+        <span class="text-sm font-medium text-zinc-400">Belia Software</span>
+      </div>
+      <p class="mt-3 text-xs text-zinc-600">&copy; 2026 Belia Software. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const API_URL = 'https://api-admin.beliasoftware.com';
+
+    const form = document.getElementById('signup-form');
+    const btn = document.getElementById('signup-btn');
+    const errorDiv = document.getElementById('signup-error');
+    const errorMsg = document.getElementById('signup-error-msg');
+    const errorList = document.getElementById('signup-error-list');
+    const successDiv = document.getElementById('signup-success');
+    const successMessage = document.getElementById('success-message');
+    const successDetails = document.getElementById('success-details');
+
+    // Phone mask: (XX) XXXXX-XXXX
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6) {
+        v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      } else if (v.length > 2) {
+        v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      } else if (v.length > 0) {
+        v = `(${v}`;
+      }
+      e.target.value = v;
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.classList.add('hidden');
+      btn.disabled = true;
+      btn.textContent = 'Criando seu ambiente...';
+
+      const data = {
+        firm_name: document.getElementById('firm_name').value,
+        admin_name: document.getElementById('admin_name').value,
+        admin_email: document.getElementById('admin_email').value,
+        admin_password: document.getElementById('admin_password').value,
+        phone: document.getElementById('phone').value || undefined,
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/api/v1/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const body = await res.json();
+
+        if (!body.success) {
+          errorMsg.textContent = body.message;
+          errorList.innerHTML = '';
+          if (body.errors && body.errors.length) {
+            body.errors.forEach(err => {
+              const li = document.createElement('li');
+              li.textContent = err;
+              errorList.appendChild(li);
+            });
+          }
+          errorDiv.classList.remove('hidden');
+          btn.disabled = false;
+          btn.textContent = 'Começar teste grátis';
+          return;
+        }
+
+        // Success
+        form.classList.add('hidden');
+        successMessage.textContent = body.data.message;
+        successDetails.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-zinc-500">Escritório</span>
+            <span class="font-medium text-zinc-200">${data.firm_name}</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-zinc-500">Email</span>
+            <span class="font-medium text-zinc-200">${data.admin_email}</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-zinc-500">Slug</span>
+            <span class="font-mono text-xs text-zinc-400">${body.data.tenant_slug}</span>
+          </div>
+        `;
+        successDiv.classList.remove('hidden');
+
+      } catch {
+        errorMsg.textContent = 'Erro ao conectar com o servidor. Tente novamente.';
+        errorList.innerHTML = '';
+        errorDiv.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Começar teste grátis';
+      }
+    });
+  </script>
+
+</body>
+</html>
