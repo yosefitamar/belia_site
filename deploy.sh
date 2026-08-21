@@ -2,9 +2,13 @@
 #
 # Publica o site institucional no container do Proxmox.
 #
-# O site é um arquivo só, servido por nginx. O deploy, portanto, é copiar esse
-# arquivo para dentro do container e conferir que o nginx continua de pé — não
-# há build, não há dependência, não há passo que possa falhar pela metade.
+# O site é uma página só mais as fotos que ela usa, servidas por nginx. O
+# deploy, portanto, é copiar esses arquivos para dentro do container e conferir
+# que o nginx continua de pé — não há build, não há dependência, não há passo
+# que possa falhar pela metade.
+#
+# As fotos vão primeiro, e a página depois: na ordem inversa, o visitante que
+# chegasse no meio da publicação veria o layout novo com os quadros vazios.
 #
 #   ./deploy.sh              # publica
 #   ./deploy.sh --dry-run    # mostra o que faria, sem tocar em nada
@@ -25,6 +29,9 @@ LOCAL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE="$LOCAL_DIR/mishpat/index.html"
 # O site é servido da raiz do domínio, e é lá que o arquivo vive.
 TARGET="$REMOTE_ROOT/index.html"
+# As fotos ficam ao lado da página, no caminho que o HTML escreve (assets/…).
+ASSETS_DIR="$LOCAL_DIR/mishpat/assets"
+ASSETS_TARGET="$REMOTE_ROOT/assets"
 
 DRY_RUN=false
 [[ "${1:-}" == "--dry-run" ]] && DRY_RUN=true
@@ -63,12 +70,27 @@ esac
 
 # A cópia vai para o host e de lá para dentro do container: `pct push` não lê
 # arquivo da máquina local.
+run ssh "$PVE_HOST" "pct exec $CT_ID -- mkdir -p $ASSETS_TARGET"
+
+# As fotos primeiro. `pct push` é um arquivo por vez, e são poucos — um laço
+# aqui se lê melhor do que empacotar e desempacotar do outro lado.
+if [[ -d "$ASSETS_DIR" ]]; then
+  echo "→ enviando as fotos ($(ls -1 "$ASSETS_DIR" | wc -l | tr -d ' ') arquivos)"
+  for asset in "$ASSETS_DIR"/*; do
+    [[ -f "$asset" ]] || continue
+    name="$(basename "$asset")"
+    staging="/tmp/belia-asset-$$-$name"
+    run scp -q "$asset" "$PVE_HOST:$staging"
+    run ssh "$PVE_HOST" "pct push $CT_ID $staging $ASSETS_TARGET/$name --perms 644"
+    run ssh "$PVE_HOST" "rm -f $staging"
+  done
+fi
+
 STAGING="/tmp/belia-site-$$.html"
-echo "→ enviando para o host"
+echo "→ enviando a página para o host"
 run scp -q "$SOURCE" "$PVE_HOST:$STAGING"
 
 echo "→ colocando no container"
-run ssh "$PVE_HOST" "pct exec $CT_ID -- mkdir -p $(dirname "$TARGET")"
 run ssh "$PVE_HOST" "pct push $CT_ID $STAGING $TARGET --perms 644"
 run ssh "$PVE_HOST" "rm -f $STAGING"
 

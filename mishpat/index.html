@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Belia Mishpat — Organize seu escritório de advocacia</title>
-<meta name="description" content="Clientes, prazos, perícias, documentos e honorários do seu escritório numa tela só. Teste grátis por 14 dias, sem cartão de crédito.">
+<title>Belia Mishpat — do requerimento no INSS à sentença, sem perder um prazo</title>
+<meta name="description" content="Sistema para escritórios de advocacia previdenciária: exigência, perícia, avaliação social, prazos e honorários nas duas frentes do mesmo segurado. Teste 14 dias, sem cartão.">
 <link rel="canonical" href="https://beliasoftware.com/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Belia Software">
-<meta property="og:title" content="Belia Mishpat — organize seu escritório de advocacia">
-<meta property="og:description" content="Clientes, prazos, perícias, documentos e honorários numa tela só. Teste grátis por 14 dias.">
+<meta property="og:title" content="Belia Mishpat — do requerimento no INSS à sentença, sem perder um prazo">
+<meta property="og:description" content="Exigência, perícia, avaliação social e honorário nas duas frentes do mesmo segurado. Teste grátis por 14 dias.">
 <meta property="og:locale" content="pt_BR">
-<meta name="theme-color" content="#1b2434">
+<meta name="theme-color" content="#12161f">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232c3a52'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%23fff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -28,7 +28,7 @@
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
   "inLanguage": "pt-BR",
-  "description": "Sistema de gestão para escritórios de advocacia: clientes, casos, prazos, perícias, audiências, documentos e honorários.",
+  "description": "Sistema de gestão para escritórios de advocacia previdenciária: clientes, casos, requerimento no INSS, ação judicial, prazos, perícias, documentos e honorários.",
   "publisher": { "@type": "Organization", "name": "Belia Software" }
 }
 </script>
@@ -57,13 +57,18 @@
 </script>
 
 <style>
+/* ═══════════════════════════════════════════════════════════════
+   Tokens — os mesmos do design system Mishpat (tokens/colors.css,
+   tokens/modules.css e tokens/motion.css do projeto no Claude Design).
+   Ficam aqui embutidos porque o site é um arquivo só: nginx serve
+   este HTML e nada mais.
+   ═══════════════════════════════════════════════════════════════ */
 :root {
-  /* Azul-marinho institucional — a mesma cor de marca do sistema. */
   --navy-50:  oklch(0.972 0.012 252);
   --navy-100: oklch(0.938 0.022 252);
   --navy-200: oklch(0.872 0.038 253);
   --navy-300: oklch(0.770 0.055 255);
-  --navy-400: oklch(0.640 0.072 256);
+  --navy-500: oklch(0.530 0.086 257);
   --navy-600: oklch(0.448 0.086 258);
   --navy-700: oklch(0.368 0.076 259);
   --navy-800: oklch(0.292 0.060 260);
@@ -71,7 +76,6 @@
   --navy-950: oklch(0.172 0.038 262);
 
   --neutral-0:   oklch(1 0 0);
-  --neutral-25:  oklch(0.990 0.003 252);
   --neutral-50:  oklch(0.977 0.004 252);
   --neutral-100: oklch(0.956 0.005 252);
   --neutral-200: oklch(0.912 0.007 252);
@@ -79,750 +83,1135 @@
   --neutral-400: oklch(0.705 0.011 253);
   --neutral-500: oklch(0.585 0.013 254);
   --neutral-600: oklch(0.478 0.013 256);
-  --neutral-700: oklch(0.385 0.013 258);
   --neutral-800: oklch(0.285 0.013 260);
   --neutral-900: oklch(0.212 0.013 261);
 
-  --success-600: oklch(0.520 0.100 155);
-  --success-100: oklch(0.940 0.035 155);
+  /* Acento do módulo previdenciário */
+  --accent:        oklch(0.520 0.100 200);
+  --accent-strong: oklch(0.420 0.100 200);
+  --accent-soft:   oklch(0.945 0.030 200);
+  --accent-border: oklch(0.860 0.055 200);
+
   --warning-600: oklch(0.600 0.115 72);
   --warning-100: oklch(0.945 0.045 78);
+  --warning-50:  oklch(0.975 0.022 78);
   --danger-600:  oklch(0.505 0.165 27);
   --danger-100:  oklch(0.940 0.038 27);
-  --info-600:    oklch(0.510 0.095 240);
-  --info-100:    oklch(0.940 0.030 240);
+  --danger-50:   oklch(0.972 0.018 27);
+  --success-600: oklch(0.520 0.100 155);
 
-  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-sans:  "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono:  "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --text-strong:   var(--neutral-900);
+  --text-body:     var(--neutral-800);
+  --text-muted:    var(--neutral-600);
+  --text-subtle:   var(--neutral-500);
+  --text-disabled: var(--neutral-400);
 
-  --page:    var(--neutral-25);
-  --surface: var(--neutral-0);
-  --border:  var(--neutral-200);
-  --text:    var(--neutral-900);
-  --body:    var(--neutral-700);
-  --muted:   var(--neutral-600);
+  --surface-card:  var(--neutral-0);
+  --surface-hover: var(--neutral-100);
 
-  --shadow-sm: 0 1px 2px oklch(0.212 0.013 261 / 0.06), 0 1px 3px oklch(0.212 0.013 261 / 0.04);
-  --shadow-md: 0 4px 12px oklch(0.212 0.013 261 / 0.07), 0 1px 3px oklch(0.212 0.013 261 / 0.05);
-  --shadow-lg: 0 18px 44px oklch(0.212 0.013 261 / 0.13), 0 4px 12px oklch(0.212 0.013 261 / 0.07);
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-300);
+  --border-strong:  var(--neutral-400);
+  --focus-ring: 0 0 0 3px color-mix(in oklab, var(--navy-500) 32%, transparent);
 
-  --radius:    8px;
-  --radius-lg: 14px;
-  --maxw: 1120px;
+  --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
+
+  --font-sans:  'IBM Plex Sans', system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --pad-x: clamp(20px, 4vw, 44px);
+  --pad-y: clamp(72px, 9vw, 120px);
 }
 
+/* ─── Base ─────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 body {
   margin: 0;
-  background: var(--page);
-  color: var(--body);
-  font: 400 16px/1.6 var(--font-sans);
+  background: var(--neutral-50);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--neutral-800);
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
-img, svg { max-width: 100%; }
-a { color: var(--navy-700); text-decoration: none; }
-a:hover { color: var(--navy-900); }
-:focus-visible { outline: 2px solid var(--navy-600); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+/* Qualquer `display` de autor vence o `[hidden]` da folha do navegador — e foi
+   assim que a tela de "tudo pronto" apareceu embaixo do formulário ainda vazio. */
+[hidden] { display: none !important; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+svg { display: block; }
+:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: 6px; }
 
-h1, h2, h3 { font-family: var(--font-serif); color: var(--text); margin: 0; letter-spacing: -0.015em; }
-h1 { font-size: clamp(34px, 5vw, 54px); line-height: 1.1; font-weight: 600; }
-h2 { font-size: clamp(26px, 3.2vw, 36px); line-height: 1.18; font-weight: 600; }
-h3 { font-size: 18px; line-height: 1.3; font-weight: 600; }
-p  { margin: 0; }
-.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-
-.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-section { padding: 88px 0; }
-.section-head { max-width: 680px; }
-.section-head p { margin-top: 14px; font-size: 17px; color: var(--muted); }
+.wrap { max-width: 1200px; margin: 0 auto; padding: var(--pad-y) var(--pad-x); }
+.serif { font-family: var(--font-serif); }
+.mono { font-family: var(--font-mono); }
 
 .eyebrow {
-  font: 600 12px/1.3 var(--font-sans);
-  letter-spacing: 0.09em; text-transform: uppercase;
-  color: var(--navy-600); margin-bottom: 14px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent-strong);
 }
-.dark .eyebrow { color: var(--navy-300); }
+.eyebrow-pill {
+  align-self: flex-start; padding: 7px 16px; border-radius: 999px;
+  border: 1px solid var(--border-default); background: var(--surface-card);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--accent-strong);
+}
+.h2 {
+  font-family: var(--font-serif); font-size: clamp(30px, 3.8vw, 48px);
+  line-height: 1.08; font-weight: 600; letter-spacing: -0.022em;
+  color: var(--navy-900); text-wrap: balance;
+}
+.h2-dark { color: var(--neutral-0); }
+.lead { font-size: 17px; color: var(--neutral-600); text-wrap: pretty; }
+.head { max-width: 34em; display: flex; flex-direction: column; gap: 14px; }
 
-/* ─── Botões ─────────────────────────────────────────────────────── */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 12px 22px; border-radius: var(--radius);
-  font: 600 15px/1 var(--font-sans); cursor: pointer;
-  border: 1px solid transparent; transition: background .15s, border-color .15s, color .15s, transform .1s;
-  white-space: nowrap;
-}
-.btn:active { transform: translateY(1px); }
-.btn-primary { background: var(--navy-800); color: #fff; box-shadow: var(--shadow-sm); }
-.btn-primary:hover { background: var(--navy-900); color: #fff; }
-.btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border); }
-.btn-ghost:hover { border-color: var(--neutral-400); color: var(--text); }
-.btn-lg { padding: 15px 28px; font-size: 16px; }
-.btn[disabled] { opacity: .55; cursor: not-allowed; }
-
-/* ─── Topo ───────────────────────────────────────────────────────── */
-header.top {
-  position: sticky; top: 0; z-index: 50;
-  background: oklch(0.990 0.003 252 / 0.86);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-.top-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
-.brand { display: flex; align-items: center; gap: 11px; color: var(--text); }
-.brand:hover { color: var(--text); }
-.mark {
-  width: 32px; height: 32px; border-radius: 8px; flex: none;
-  background: var(--navy-800); color: #fff;
-  display: grid; place-items: center;
-  font: 700 17px/1 var(--font-serif);
-}
-.brand-name { font: 600 17px/1 var(--font-serif); letter-spacing: -0.01em; }
-.brand-name span { color: var(--navy-600); }
-.top nav { display: flex; align-items: center; gap: 28px; font-size: 14.5px; }
-.top nav a.link { color: var(--muted); font-weight: 500; }
-.top nav a.link:hover { color: var(--text); }
-.top-actions { display: flex; align-items: center; gap: 12px; }
-@media (max-width: 900px) { .top nav.menu { display: none; } }
-@media (max-width: 560px) { .hide-sm { display: none; } }
-
-/* ─── Hero ───────────────────────────────────────────────────────── */
-.hero {
-  background:
-    radial-gradient(1100px 520px at 78% -12%, oklch(0.938 0.022 252 / 0.85), transparent 65%),
-    linear-gradient(180deg, var(--neutral-0), var(--neutral-25));
-  border-bottom: 1px solid var(--border);
-  padding: 76px 0 0;
-}
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr); gap: 56px; align-items: center; }
-@media (max-width: 980px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; } }
-.pill {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 6px 13px 6px 10px; border-radius: 999px;
-  background: var(--surface); border: 1px solid var(--border);
-  font-size: 13px; color: var(--muted); box-shadow: var(--shadow-sm);
-}
-.pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success-600); flex: none; }
-.hero h1 { margin: 22px 0 0; }
-.hero h1 em { font-style: normal; color: var(--navy-600); }
-.hero-sub { margin-top: 20px; font-size: 18.5px; line-height: 1.6; color: var(--muted); max-width: 560px; }
-.hero-cta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
-.hero-note { margin-top: 16px; font-size: 13.5px; color: var(--neutral-500); }
-@media (max-width: 560px) { .hero-cta { flex-direction: column; } .hero-cta .btn { width: 100%; } }
-.hero-foot { margin-top: 60px; border-top: 1px solid var(--border); padding: 22px 0 26px; }
-.hero-foot ul { display: flex; flex-wrap: wrap; gap: 12px 34px; list-style: none; margin: 0; padding: 0; font-size: 13.5px; color: var(--muted); }
-.hero-foot li { display: flex; align-items: center; gap: 9px; }
-.hero-foot li svg { width: 15px; height: 15px; flex: none; stroke: var(--success-600); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-
-/* ─── Mockup da tela ─────────────────────────────────────────────── */
-.shot {
-  border-radius: var(--radius-lg); background: var(--surface);
-  border: 1px solid var(--border); box-shadow: var(--shadow-lg);
-  overflow: hidden; font-size: 13px;
-}
-.shot-bar {
-  display: flex; align-items: center; gap: 7px;
-  padding: 11px 14px; background: var(--neutral-50); border-bottom: 1px solid var(--border);
-}
-.shot-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--neutral-300); }
-.shot-bar span {
-  margin-left: 10px; font: 400 11.5px var(--font-mono); color: var(--neutral-500);
-  /* Em telas estreitas o caminho é mais largo que a barra: cortar com
-     reticências mantém o desenho de janela, quebrar em duas linhas o desfaz. */
-  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.shot-body { display: grid; grid-template-columns: 168px minmax(0, 1fr); }
-@media (max-width: 640px) { .shot-body { grid-template-columns: 1fr; } .shot-side { display: none; } }
-.shot-side { background: var(--navy-950); padding: 16px 12px; color: var(--navy-200); }
-.shot-side .grp { font: 600 10px/1 var(--font-sans); letter-spacing: .09em; text-transform: uppercase; color: oklch(1 0 0 / .42); margin: 16px 8px 8px; }
-.shot-side .grp:first-child { margin-top: 4px; }
-.shot-side a { display: block; padding: 7px 9px; border-radius: 6px; color: var(--navy-200); font-size: 12.5px; }
-.shot-side a.on { background: oklch(1 0 0 / .12); color: #fff; font-weight: 500; }
-.shot-main { padding: 18px; }
-.shot-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.shot-title h4 { margin: 0; font: 600 16px/1.3 var(--font-serif); color: var(--text); }
-.shot-title .cnj { font: 400 11.5px var(--font-mono); color: var(--neutral-500); }
-.tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 3px 10px; border-radius: 999px; font: 500 11.5px/1.5 var(--font-sans);
-}
-.tag-warn { background: var(--warning-100); color: var(--warning-600); }
-.tag-info { background: var(--info-100); color: var(--info-600); }
-.tag-ok   { background: var(--success-100); color: var(--success-600); }
-.tag-dang { background: var(--danger-100); color: var(--danger-600); }
-.alert {
-  margin-top: 14px; padding: 10px 12px; border-radius: var(--radius);
-  background: var(--danger-100); color: var(--danger-600);
-  font-size: 12.5px; display: flex; gap: 9px; align-items: flex-start; line-height: 1.45;
-}
-.alert.warn { background: var(--warning-100); color: var(--warning-600); }
-.shot-steps { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-.step {
-  padding: 7px 12px; border-radius: 7px; border: 1px solid var(--border);
-  background: var(--surface); font-size: 12.5px; color: var(--body);
-}
-.step.primary { background: var(--navy-800); border-color: var(--navy-800); color: #fff; font-weight: 500; }
-.shot-table { margin-top: 18px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.shot-table .th, .shot-table .tr {
-  display: grid; grid-template-columns: minmax(0, 1.5fr) 92px 88px; gap: 10px;
-  padding: 9px 12px; align-items: center;
-}
-.shot-table .th { background: var(--neutral-50); border-bottom: 1px solid var(--border); font: 600 10.5px/1.3 var(--font-sans); letter-spacing: .07em; text-transform: uppercase; color: var(--neutral-500); align-items: end; }
-.shot-table .tr { border-top: 1px solid var(--neutral-100); font-size: 12.5px; color: var(--body); }
-.shot-table .tr:first-of-type { border-top: 0; }
-.shot-table .tr span.mono { color: var(--neutral-700); font-size: 12px; }
-
-/* ─── Cards ──────────────────────────────────────────────────────── */
-.grid { display: grid; gap: 20px; }
-.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 940px) { .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 680px) { .grid-3 { grid-template-columns: 1fr; } }
-.card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 26px 24px;
-  box-shadow: var(--shadow-sm); transition: box-shadow .18s, border-color .18s, transform .18s;
-}
-.card:hover { box-shadow: var(--shadow-md); border-color: var(--neutral-300); transform: translateY(-2px); }
-.card h3 { margin-bottom: 10px; }
-.card p { font-size: 14.5px; line-height: 1.62; color: var(--muted); }
-.ico {
-  width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
-  background: var(--navy-50); color: var(--navy-700); margin-bottom: 16px;
-}
-.ico svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-
-/* ─── Faixa escura ───────────────────────────────────────────────── */
-.dark { background: var(--navy-950); color: var(--navy-200); }
-.dark h2, .dark h3 { color: #fff; }
-.dark .section-head p { color: var(--navy-200); }
-.dark .card {
-  background: oklch(1 0 0 / 0.05); border-color: oklch(1 0 0 / 0.12);
-  box-shadow: none; backdrop-filter: blur(2px);
-}
-.dark .card:hover { border-color: oklch(1 0 0 / 0.22); box-shadow: none; }
-.dark .card p { color: var(--navy-200); }
-.dark .ico { background: oklch(1 0 0 / 0.1); color: var(--navy-100); }
-
-
-/* ─── Planos ─────────────────────────────────────────────────────── */
-/* Quantos planos existem é decisão do painel, e o CSS não pode depender disso:
-   `auto-fit` acomoda três ou cinco cartões sozinho e quebra em telas estreitas.
-   Foi o que substituiu o número de colunas escrito pelo JS — inline, ele vencia
-   as media queries e espremia quatro cartões num celular. */
-.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: 18px; margin-top: 44px; align-items: stretch; }
-/* No tablet, `auto-fit` daria três cartões e deixaria o quarto sozinho na
-   linha de baixo; duas colunas equilibram melhor a leitura. */
-@media (min-width: 700px) and (max-width: 1009px) { .plans { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.plan {
-  display: flex; flex-direction: column; position: relative;
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 26px 22px; box-shadow: var(--shadow-sm);
-}
-.plan.popular { border-color: var(--navy-800); box-shadow: 0 0 0 1px var(--navy-800), var(--shadow-md); }
-.plan .badge {
-  position: absolute; top: -11px; left: 22px;
-  background: var(--navy-800); color: #fff; border-radius: 999px;
-  padding: 4px 11px; font: 600 11px/1 var(--font-sans); letter-spacing: .04em;
-}
-.plan .name { font: 600 12px/1 var(--font-sans); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
-.plan .price { margin-top: 16px; display: flex; align-items: baseline; gap: 5px; }
-.plan .price b { font: 600 34px/1 var(--font-serif); color: var(--text); letter-spacing: -0.02em; }
-.plan .price small { font-size: 13.5px; color: var(--neutral-500); }
-.plan .high { margin-top: 10px; font-size: 13.5px; color: var(--muted); min-height: 40px; line-height: 1.5; }
-.plan ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; flex: 1; }
-.plan li { display: flex; gap: 9px; align-items: flex-start; font-size: 14px; color: var(--body); line-height: 1.45; }
-.plan li svg { width: 16px; height: 16px; flex: none; margin-top: 2px; stroke: var(--success-600); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.plan .btn { margin-top: 22px; width: 100%; }
-.plans-note { margin-top: 22px; font-size: 13.5px; color: var(--neutral-500); }
-.plan-skeleton { min-height: 320px; background: linear-gradient(100deg, var(--neutral-100) 30%, var(--neutral-50) 50%, var(--neutral-100) 70%); background-size: 220% 100%; animation: sweep 1.4s infinite linear; border-radius: var(--radius-lg); border: 1px solid var(--border); }
-@keyframes sweep { to { background-position: -220% 0; } }
-@media (prefers-reduced-motion: reduce) { .plan-skeleton { animation: none; } html { scroll-behavior: auto; } }
-.plans-error {
-  grid-column: 1 / -1; padding: 26px; border-radius: var(--radius-lg);
-  border: 1px dashed var(--neutral-300); background: var(--surface); text-align: center; font-size: 14.5px; color: var(--muted);
-}
-
-/* ─── Formulário ─────────────────────────────────────────────────── */
-.signup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px); gap: 56px; align-items: start; }
-@media (max-width: 900px) { .signup { grid-template-columns: 1fr; gap: 36px; } }
-.signup-points { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 16px; }
-.signup-points li { display: flex; gap: 12px; font-size: 14.5px; line-height: 1.55; color: var(--navy-200); }
-.signup-points svg { width: 18px; height: 18px; flex: none; margin-top: 2px; stroke: var(--navy-300); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.form-card { background: var(--surface); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-lg); }
-/* O cartão é claro dentro de uma seção escura: sem redefinir a cor base aqui,
-   os textos dele herdavam o tom claro do bloco e sumiam no branco. Cada regra
-   com cor própria — dica, erro, rodapé — continua valendo. */
-.dark .form-card { color: var(--body); }
-.dark .form-card h3 { color: var(--text); }
-.field { margin-bottom: 16px; }
-.field label { display: block; font: 500 13px/1 var(--font-sans); color: var(--neutral-800); margin-bottom: 7px; }
-.field label .opt { color: var(--neutral-500); font-weight: 400; }
-.field input, .field select {
-  width: 100%; padding: 11px 13px; border-radius: var(--radius);
-  border: 1px solid var(--neutral-300); background: var(--neutral-0);
-  font: 400 14.5px var(--font-sans); color: var(--text);
-  transition: border-color .15s, box-shadow .15s;
-}
-.field input:focus, .field select:focus {
-  outline: none; border-color: var(--navy-600); box-shadow: 0 0 0 3px oklch(0.448 0.086 258 / 0.14);
-}
-.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--danger-600); }
-.field .hint { margin-top: 6px; font-size: 12.5px; color: var(--neutral-500); }
-.field .err { margin-top: 6px; font-size: 12.5px; color: var(--danger-600); }
-.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 460px) { .row { grid-template-columns: 1fr; } }
-.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-.form-error { margin-bottom: 16px; padding: 12px 14px; border-radius: var(--radius); background: var(--danger-100); color: var(--danger-600); font-size: 13.5px; line-height: 1.5; }
-.form-foot { margin-top: 14px; text-align: center; font-size: 12.5px; color: var(--neutral-500); line-height: 1.5; }
-.done { text-align: center; }
-.done .check { width: 54px; height: 54px; margin: 0 auto 18px; border-radius: 50%; background: var(--success-100); display: grid; place-items: center; }
-.done .check svg { width: 26px; height: 26px; stroke: var(--success-600); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
-.done h3 { font-size: 22px; margin-bottom: 10px; }
-.done > p { font-size: 14.5px; color: var(--muted); line-height: 1.6; }
-.done dl { margin: 22px 0 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; text-align: left; }
-.done dl > div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 14px; border-top: 1px solid var(--neutral-100); font-size: 13.5px; }
-.done dl > div:first-child { border-top: 0; }
-.done dt { color: var(--neutral-500); }
-.done dd { margin: 0; color: var(--text); font-weight: 500; text-align: right; word-break: break-word; }
-
-/* ─── Perguntas ──────────────────────────────────────────────────── */
-.faq { margin-top: 38px; border-top: 1px solid var(--border); }
-.faq details { border-bottom: 1px solid var(--border); }
-.faq summary {
-  cursor: pointer; list-style: none; padding: 20px 40px 20px 0; position: relative;
-  font: 600 16px/1.4 var(--font-sans); color: var(--text);
-}
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary::after {
-  content: ""; position: absolute; right: 8px; top: 26px;
-  width: 9px; height: 9px; border-right: 2px solid var(--neutral-400); border-bottom: 2px solid var(--neutral-400);
-  transform: rotate(45deg); transition: transform .18s;
-}
-.faq details[open] summary::after { transform: rotate(-135deg); }
-.faq .answer { padding: 0 40px 22px 0; font-size: 15px; line-height: 1.65; color: var(--muted); }
-
-/* ─── Trava de rolagem entre seções ──────────────────────────────── */
-/* A rolagem encaixa no começo da próxima seção em vez de parar no meio dela.
-   `proximity`, e não `mandatory`: o segundo sequestra a rolagem e impede
-   parar no meio de uma seção alta — e a lista de perguntas é justamente uma
-   seção alta que a pessoa lê devagar. Só as seções que cabem inteiras na
-   janela recebem a marca (é o `.snap` que o script põe), porque encaixar uma
-   seção mais alta que a tela esconderia o fim dela.
-
-   A primeira seção fica de fora, e não é detalhe: com o cabeçalho fixo
-   descontado, o ponto de encaixe dela cairia acima de zero — posição que não
-   existe —, e o navegador passava a tratar a segunda seção como o primeiro
-   encaixe válido. O efeito era a página se recusar a voltar ao topo. */
-@media (min-height: 620px) and (pointer: fine) {
-  html { scroll-snap-type: y proximity; }
-  main > section.snap { scroll-snap-align: start; }
+/* Entradas em cena. Onde o navegador entende `animation-timeline: view()`,
+   cada bloco entra ao chegar; onde não entende (Firefox, Safari antigo), a
+   animação simplesmente roda uma vez no carregamento — nada fica invisível. */
+@keyframes belia-in     { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes belia-reveal { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes belia-abrir  { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.reveal {
+  animation: belia-reveal 700ms var(--ease-entrance) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 50%;
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-snap-type: none; }
+  html { scroll-behavior: auto; }
+  .reveal, [class*="belia-"] { animation: none !important; }
+  * { transition-duration: 0ms !important; }
 }
 
-/* ─── Voltar ao topo ─────────────────────────────────────────────── */
+/* ─── Botões ───────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  border: 1px solid transparent; border-radius: 999px; cursor: pointer;
+  font-size: 15.5px; font-weight: 600; white-space: nowrap;
+  transition: background-color 140ms ease, border-color 140ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.btn-lg { height: 54px; padding: 0 10px 0 28px; font-size: 16px; }
+.btn-md { height: 50px; padding: 0 8px 0 24px; }
+.btn-navy { background: var(--navy-800); color: var(--neutral-0); }
+.btn-navy:hover { background: var(--navy-950); }
+.btn-light { background: var(--neutral-0); color: var(--navy-900); box-shadow: 0 10px 30px color-mix(in oklab, black 32%, transparent); }
+.btn-light:hover { transform: translateY(-2px); box-shadow: 0 16px 40px color-mix(in oklab, black 38%, transparent); }
+.btn-outline-light { border-color: color-mix(in oklab, white 28%, transparent); color: var(--neutral-0); font-weight: 500; padding: 0 26px; }
+.btn-outline-light:hover { background: color-mix(in oklab, white 9%, transparent); }
+.btn-outline { border-color: var(--border-default); background: var(--surface-card); color: var(--navy-800); }
+.btn-outline:hover { background: var(--surface-hover); border-color: var(--border-strong); }
+.btn-block { width: 100%; padding: 0 20px; }
+.dot {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center; font-size: 15px;
+  background: var(--navy-900); color: var(--neutral-0);
+}
+.dot-sm { width: 34px; height: 34px; font-size: 14px; }
+.dot-light { background: color-mix(in oklab, white 18%, transparent); width: 26px; height: 26px; font-size: 13px; }
+
+/* ─── Nav em pílula ────────────────────────────────────────── */
+.nav-wrap { position: sticky; top: 14px; z-index: 50; padding: 0 clamp(14px, 3vw, 32px); }
+.nav {
+  max-width: 1080px; margin: 0 auto;
+  background: color-mix(in oklab, var(--neutral-0) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle); border-radius: 26px;
+  box-shadow: 0 10px 34px color-mix(in oklab, var(--navy-950) 14%, transparent);
+}
+.nav-bar { display: flex; align-items: center; gap: 26px; padding: 10px 12px 10px 22px; }
+.brand { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
+.brand-text { display: flex; flex-direction: column; line-height: 1; gap: 3px; }
+.brand-over { font-size: 9px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-subtle); }
+.brand-name { font-family: var(--font-serif); font-size: 21px; font-weight: 700; color: var(--navy-900); letter-spacing: -0.022em; white-space: nowrap; }
+.nav-links { display: flex; gap: 24px; margin: 0 auto; }
+.nav-links a { font-size: 14.5px; color: var(--neutral-600); white-space: nowrap; transition: color 140ms ease; }
+.nav-links a:hover { color: var(--navy-900); }
+.nav-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.nav-login { font-size: 14.5px; font-weight: 500; color: var(--navy-800); white-space: nowrap; }
+.nav-cta { display: inline-flex; align-items: center; gap: 9px; font-size: 14.5px; font-weight: 600; color: var(--neutral-0); background: var(--navy-800); padding: 9px 9px 9px 20px; border-radius: 999px; white-space: nowrap; transition: background-color 140ms ease; }
+.nav-cta:hover { background: var(--navy-950); }
+.nav-compact { display: none; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; }
+.nav-compact .nav-cta { padding: 10px 18px; font-size: 14px; }
+.nav-burger {
+  width: 40px; height: 40px; flex-shrink: 0; display: grid; place-items: center;
+  border: 1px solid var(--border-default); border-radius: 50%;
+  background: var(--surface-card); cursor: pointer; padding: 0;
+}
+.nav-burger:hover { background: var(--surface-hover); }
+.nav-burger span { display: flex; flex-direction: column; gap: 4px; }
+.nav-burger span span { display: block; width: 15px; height: 1.5px; background: var(--navy-800); }
+.nav-drawer {
+  border-top: 1px solid var(--border-subtle); padding: 6px 22px 14px;
+  display: flex; flex-direction: column; animation: belia-abrir 180ms ease both;
+}
+.nav-drawer a { padding: 13px 0; font-size: 16px; color: var(--neutral-800); border-bottom: 1px solid var(--border-subtle); }
+.nav-drawer a:last-child { border-bottom: none; font-weight: 500; color: var(--navy-800); }
+
+@media (max-width: 860px) {
+  .nav-links, .nav-actions { display: none; }
+  .nav-compact { display: flex; }
+}
+@media (max-width: 430px) {
+  .brand-text { display: none; }
+}
+
+/* ─── Herói ────────────────────────────────────────────────── */
+.hero {
+  position: relative; margin: -68px clamp(8px, 1.4vw, 18px) 0;
+  border-radius: 0 0 28px 28px; overflow: hidden;
+  background: var(--navy-950); color: var(--neutral-0);
+}
+/* A foto fica por baixo de duas camadas: o degradê que escurece o lado do
+   texto — sem ele o título branco disputa contraste com a mesa iluminada — e
+   o acento do módulo no alto à direita. */
+.hero-photo { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(100deg,
+      color-mix(in oklab, var(--navy-950) 94%, transparent) 0%,
+      color-mix(in oklab, var(--navy-950) 82%, transparent) 46%,
+      color-mix(in oklab, var(--navy-950) 42%, transparent) 100%),
+    radial-gradient(85% 65% at 80% 0%, color-mix(in oklab, var(--accent) 20%, transparent) 0%, transparent 58%);
+}
+.hero-inner {
+  position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;
+  padding: clamp(120px, 15vw, 176px) var(--pad-x) clamp(48px, 6vw, 80px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: clamp(40px, 5vw, 72px); align-items: center;
+}
+.hero-copy { display: flex; flex-direction: column; gap: 26px; min-width: 0; animation: belia-in 600ms var(--ease-entrance) both; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 9px; align-self: flex-start;
+  padding: 7px 16px 7px 11px; border-radius: 999px;
+  border: 1px solid color-mix(in oklab, white 24%, transparent);
+  background: color-mix(in oklab, white 8%, transparent);
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--accent-border);
+}
+.hero-tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.hero h1 {
+  font-family: var(--font-serif); font-size: clamp(38px, 5.4vw, 68px);
+  line-height: 1.04; font-weight: 600; letter-spacing: -0.028em;
+  color: var(--neutral-0); text-wrap: balance;
+}
+.hero h1 em { font-style: italic; color: var(--accent-border); }
+.hero-sub { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; color: var(--navy-100); max-width: 30em; text-wrap: pretty; }
+.hero-btns { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding-top: 4px; }
+.hero-note { font-size: 14px; color: var(--navy-300); }
+.hero-side { min-width: 0; display: flex; justify-content: flex-end; animation: belia-in 700ms 160ms var(--ease-entrance) both; }
+.today {
+  width: min(340px, 100%);
+  background: color-mix(in oklab, var(--neutral-0) 12%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklab, white 22%, transparent);
+  border-radius: 18px; padding: 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.today-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent-border); }
+.today li { display: grid; grid-template-columns: 6px 1fr; gap: 12px; align-items: flex-start; padding-bottom: 14px; border-bottom: 1px solid color-mix(in oklab, white 14%, transparent); }
+.today li + li { padding-top: 14px; }
+.today li i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-top: 6px; }
+.today b { font-size: 14.5px; font-weight: 600; color: var(--neutral-0); text-wrap: pretty; display: block; }
+.today small { font-family: var(--font-mono); font-size: 11.5px; color: var(--navy-200); }
+.today-foot { font-size: 13px; color: var(--navy-200); }
+.facts { position: relative; z-index: 2; border-top: 1px solid color-mix(in oklab, white 12%, transparent); }
+.facts-grid {
+  max-width: 1200px; margin: 0 auto;
+  padding: clamp(22px, 3vw, 34px) var(--pad-x);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 22px 32px;
+}
+.fact b { font-family: var(--font-serif); font-size: clamp(30px, 3vw, 40px); font-weight: 600; line-height: 1; letter-spacing: -0.02em; color: var(--neutral-0); display: block; margin-bottom: 4px; }
+.fact span { font-size: 14px; color: var(--navy-200); text-wrap: pretty; }
+
+/* ─── Por dentro do sistema ────────────────────────────────── */
+.inside {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: clamp(36px, 4.5vw, 64px); align-items: center;
+  padding: clamp(64px, 8vw, 108px) var(--pad-x) clamp(56px, 7vw, 92px);
+  max-width: 1200px; margin: 0 auto;
+}
+.inside-copy { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.inside-copy .h2 { font-size: clamp(28px, 3.6vw, 44px); line-height: 1.1; }
+.bullets { display: flex; flex-direction: column; gap: 12px; padding-top: 4px; }
+.bullets li { display: flex; align-items: baseline; gap: 12px; font-size: 15.5px; color: var(--neutral-800); text-wrap: pretty; }
+.bullets li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; transform: translateY(-3px); }
+
+/* A janela do sistema — o mesmo caso, com os avisos que a tela mostra. */
+.mock-holder { min-width: 0; display: flex; justify-content: center; }
+.mock {
+  width: 100%; max-width: 520px; background: var(--surface-card);
+  border: 1px solid var(--border-subtle); border-radius: 18px; overflow: hidden;
+  box-shadow: 0 24px 60px color-mix(in oklab, var(--navy-950) 14%, transparent);
+  transition: transform 300ms var(--ease-standard), box-shadow 300ms var(--ease-standard);
+}
+.mock:hover { transform: translateY(-5px); box-shadow: 0 34px 78px color-mix(in oklab, var(--navy-950) 20%, transparent); }
+.mock-bar { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: var(--navy-900); }
+.mock-bar i { width: 8px; height: 8px; border-radius: 50%; background: color-mix(in oklab, white 25%, transparent); }
+.mock-bar span { margin-left: 8px; font-size: 11.5px; font-family: var(--font-mono); color: var(--navy-300); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mock-body { padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+.mock-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.mock-top b { font-size: 15px; font-weight: 600; color: var(--text-strong); display: block; }
+.mock-top small { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); }
+.chip-warn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px;
+  background: var(--warning-50); border: 1px solid var(--warning-100); color: var(--warning-600);
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.chip-warn i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.alerts { display: flex; flex-direction: column; gap: 8px; }
+.alert { padding: 11px 14px; border-radius: 7px; font-size: 13.5px; line-height: 1.4; color: var(--neutral-800); }
+.alert-danger { background: var(--danger-50); border: 1px solid var(--danger-100); border-left: 3px solid var(--danger-600); }
+.alert-warn { background: var(--warning-50); border: 1px solid var(--warning-100); border-left: 3px solid var(--warning-600); }
+.mock-label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-subtle); }
+.steps-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip { padding: 8px 15px; border-radius: 999px; border: 1px solid var(--border-default); color: var(--text-body); font-size: 13px; }
+.chip-primary { background: var(--navy-800); color: var(--neutral-0); border-color: var(--navy-800); font-weight: 500; }
+.mock-agenda { border-top: 1px solid var(--border-subtle); padding-top: 14px; display: flex; flex-direction: column; gap: 9px; }
+.mock-agenda div { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; }
+.mock-agenda span:first-child { font-size: 13px; color: var(--text-body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mock-agenda .when { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); white-space: nowrap; }
+.mock-agenda .state { font-size: 11.5px; font-weight: 600; white-space: nowrap; color: var(--text-muted); }
+
+/* ─── Fotos ────────────────────────────────────────────────── */
+/* A altura é do quadro, não do arquivo: `cover` recorta o que sobra e a
+   página não pula quando a imagem chega. */
+.photo { margin: 0; border-radius: 18px; overflow: hidden; border: 1px solid var(--border-subtle); background: var(--neutral-100); }
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo-tall { margin-top: 8px; height: clamp(260px, 32vw, 420px); box-shadow: 0 18px 44px color-mix(in oklab, var(--navy-950) 10%, transparent); }
+.photo-wide { margin-top: 12px; height: clamp(180px, 22vw, 260px); border-color: color-mix(in oklab, white 16%, transparent); background: color-mix(in oklab, white 6%, transparent); }
+.photo-faq { height: clamp(240px, 34vw, 380px); box-shadow: 0 20px 48px color-mix(in oklab, var(--navy-950) 10%, transparent); }
+
+/* ─── Ganhos + vocabulário ─────────────────────────────────── */
+.gains-sec { background: var(--neutral-0); border-top: 1px solid var(--border-subtle); }
+.gains {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
+  gap: clamp(40px, 5vw, 72px); align-items: start;
+}
+.gains-copy { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.gains-copy .eyebrow-pill { background: var(--neutral-50); }
+.vocab {
+  margin-top: 14px; border-radius: 18px; border: 1px solid var(--border-subtle);
+  background: var(--navy-950); color: var(--neutral-0); overflow: hidden;
+  box-shadow: 0 18px 44px color-mix(in oklab, var(--navy-950) 18%, transparent);
+  position: relative;
+}
+.vocab::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(80% 60% at 85% 0%, color-mix(in oklab, var(--accent) 22%, transparent) 0%, transparent 60%);
+}
+.vocab-head { position: relative; padding: 24px 26px 0; display: flex; flex-direction: column; gap: 6px; }
+.vocab-head span { font-size: 10.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent-border); }
+.vocab-head b { font-family: var(--font-serif); font-size: 23px; font-weight: 600; letter-spacing: -0.018em; }
+.vocab-list { position: relative; padding: 18px 26px 26px; display: flex; flex-direction: column; }
+.vocab-list div { display: grid; grid-template-columns: 74px 1fr; gap: 14px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid color-mix(in oklab, white 12%, transparent); }
+.vocab-list div:last-child { border-bottom: none; }
+.vocab-list dt { font-family: var(--font-mono); font-size: 12.5px; font-weight: 500; color: var(--accent-border); }
+.vocab-list dd { margin: 0; font-size: 14px; line-height: 1.45; color: var(--navy-100); text-wrap: pretty; }
+.gain { display: grid; gap: 8px; padding: 22px 0 22px 20px; border-top: 1px solid var(--border-subtle); border-left: 2px solid transparent; transition: border-left-color 180ms var(--ease-standard), padding-left 180ms var(--ease-standard); }
+.gain:hover { border-left-color: var(--accent); padding-left: 26px; }
+.gain h3 { font-family: var(--font-serif); font-size: 21px; font-weight: 600; color: var(--navy-900); letter-spacing: -0.015em; text-wrap: balance; }
+.gain p { font-size: 15px; line-height: 1.55; color: var(--neutral-600); text-wrap: pretty; }
+.gains-foot { padding-top: 24px; border-top: 1px solid var(--border-subtle); font-size: 15px; color: var(--text-muted); text-wrap: pretty; }
+
+/* ─── Rotina (quatro cartões) ──────────────────────────────── */
+.routine { padding-top: 0; display: flex; flex-direction: column; gap: clamp(36px, 4vw, 52px); }
+.routine-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.routine-head .head { max-width: 30em; }
+.routine-head > p { font-size: 16px; color: var(--neutral-600); max-width: 26em; text-wrap: pretty; }
+.cards-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 18px; }
+.pain {
+  background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: 18px;
+  padding: 28px 26px; display: flex; flex-direction: column; gap: 16px;
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--navy-950) 4%, transparent);
+  transition: transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard);
+}
+.pain:hover { transform: translateY(-4px); box-shadow: 0 16px 36px color-mix(in oklab, var(--navy-950) 10%, transparent); }
+.pain-n { width: 44px; height: 44px; border-radius: 12px; background: var(--navy-50); border: 1px solid var(--navy-100); display: grid; place-items: center; font-family: var(--font-serif); font-size: 17px; font-weight: 600; color: var(--navy-700); }
+.pain h3 { font-family: var(--font-serif); font-size: 21px; font-weight: 600; color: var(--navy-900); letter-spacing: -0.015em; text-wrap: balance; }
+.pain p { font-size: 14.5px; line-height: 1.55; color: var(--neutral-600); text-wrap: pretty; }
+.pain .after { color: var(--neutral-800); font-weight: 500; padding-top: 12px; border-top: 1px dashed var(--border-default); margin-top: auto; }
+.pain-dark { background: var(--navy-900); border-color: var(--navy-800); position: relative; overflow: hidden; box-shadow: 0 18px 44px color-mix(in oklab, var(--navy-950) 26%, transparent); }
+.pain-dark::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(90% 70% at 85% 0%, color-mix(in oklab, var(--accent) 24%, transparent) 0%, transparent 60%); }
+.pain-dark > * { position: relative; }
+.pain-dark .pain-n { background: color-mix(in oklab, white 12%, transparent); border-color: color-mix(in oklab, white 16%, transparent); color: var(--neutral-0); }
+.pain-dark h3 { color: var(--neutral-0); }
+.pain-dark p { color: var(--navy-200); }
+.pain-dark .after { color: var(--neutral-0); border-top-color: color-mix(in oklab, white 20%, transparent); }
+
+/* ─── Duas frentes ─────────────────────────────────────────── */
+.fronts-sec { background: var(--neutral-0); border-top: 1px solid var(--border-subtle); }
+.cards-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 18px; }
+.front { border: 1px solid var(--border-subtle); border-radius: 18px; padding: 32px 30px; display: flex; flex-direction: column; gap: 18px; background: var(--neutral-50); transition: transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard); }
+.front:hover { transform: translateY(-4px); box-shadow: 0 16px 36px color-mix(in oklab, var(--navy-950) 9%, transparent); }
+.front-org { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: var(--accent-soft); border: 1px solid var(--accent-border); color: var(--accent-strong); font-size: 11.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+.front h3 { font-family: var(--font-serif); font-size: 26px; font-weight: 600; color: var(--navy-900); letter-spacing: -0.018em; }
+.front p { font-size: 15px; line-height: 1.55; color: var(--neutral-600); text-wrap: pretty; }
+.front .bullets li { font-size: 15px; }
+
+/* ─── Processo em quatro passos (bloco escuro) ─────────────── */
+.slab-sec { background: var(--neutral-0); padding: 0 clamp(8px, 1.4vw, 18px) var(--pad-y); }
+.slab { max-width: 1240px; margin: 0 auto; background: var(--navy-950); border-radius: 28px; position: relative; overflow: hidden; }
+.slab::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(70% 60% at 15% 0%, color-mix(in oklab, var(--accent) 18%, transparent) 0%, transparent 55%); }
+.slab-inner {
+  position: relative; padding: clamp(48px, 6vw, 84px) clamp(24px, 4vw, 64px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(40px, 5vw, 72px); align-items: center;
+}
+.slab-copy { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.slab-copy .eyebrow { color: var(--accent-border); }
+.slab-copy .h2 { font-size: clamp(28px, 3.6vw, 44px); line-height: 1.1; color: var(--neutral-0); }
+.slab-copy p { font-size: 16.5px; line-height: 1.55; color: var(--navy-100); max-width: 30em; text-wrap: pretty; }
+.slab-copy .btn { align-self: flex-start; margin-top: 6px; }
+.step { display: grid; grid-template-columns: 48px 1fr; gap: 18px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid color-mix(in oklab, white 12%, transparent); }
+.step:last-child { border-bottom: none; }
+.step-n { width: 48px; height: 48px; border-radius: 50%; border: 1px solid color-mix(in oklab, white 22%, transparent); background: color-mix(in oklab, white 7%, transparent); display: grid; place-items: center; font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--neutral-0); }
+.step b { font-size: 16.5px; font-weight: 600; color: var(--neutral-0); display: block; }
+.step span { font-size: 14.5px; line-height: 1.5; color: var(--navy-200); text-wrap: pretty; }
+/* No lugar da foto de equipe: o aviso que chega antes do expediente. */
+.morning { margin-top: 12px; border-radius: 18px; border: 1px solid color-mix(in oklab, white 16%, transparent); background: color-mix(in oklab, white 6%, transparent); padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+.morning-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.morning-head b { font-size: 14.5px; font-weight: 600; color: var(--neutral-0); }
+.morning-head span { font-family: var(--font-mono); font-size: 11px; color: var(--navy-200); }
+.morning li { display: flex; align-items: baseline; gap: 10px; font-size: 14px; color: var(--navy-100); padding: 7px 0; border-top: 1px solid color-mix(in oklab, white 10%, transparent); text-wrap: pretty; }
+.morning li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; transform: translateY(-3px); }
+.morning-foot { font-size: 12.5px; color: var(--navy-300); }
+
+/* ─── Planos ───────────────────────────────────────────────── */
+.plans-sec { background: var(--neutral-50); border-top: 1px solid var(--border-subtle); }
+.plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 18px; align-items: start; }
+.plan {
+  border-radius: 20px; padding: 32px 30px; display: flex; flex-direction: column; gap: 22px;
+  position: relative; background: var(--surface-card); border: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--navy-950) 4%, transparent);
+  transition: transform 200ms var(--ease-standard), box-shadow 200ms var(--ease-standard);
+}
+.plan:hover { transform: translateY(-4px); box-shadow: 0 16px 36px color-mix(in oklab, var(--navy-950) 10%, transparent); }
+.plan-name { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-strong); }
+.plan-profile { font-size: 14.5px; color: var(--text-muted); }
+.plan-price { display: flex; align-items: baseline; gap: 8px; }
+.plan-price b { font-family: var(--font-serif); font-size: 46px; font-weight: 600; line-height: 1; letter-spacing: -0.025em; color: var(--navy-900); }
+.plan-price span { font-size: 14.5px; color: var(--text-muted); }
+.plan-items { display: flex; flex-direction: column; gap: 11px; padding-top: 18px; border-top: 1px solid var(--border-subtle); }
+.plan-items li { display: flex; align-items: baseline; gap: 11px; font-size: 14.5px; line-height: 1.45; color: var(--neutral-800); }
+.plan-items li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--navy-600); flex-shrink: 0; transform: translateY(-3px); }
+.plan .btn { margin-top: auto; height: 48px; width: 100%; padding: 0 20px; }
+.plan-pop { padding-top: 62px; background: var(--navy-900); border-color: var(--navy-800); overflow: hidden; box-shadow: 0 22px 54px color-mix(in oklab, var(--navy-950) 30%, transparent); }
+.plan-pop::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(90% 70% at 85% 0%, color-mix(in oklab, var(--accent) 22%, transparent) 0%, transparent 60%); }
+.plan-pop > * { position: relative; }
+.plan-pop .plan-name { color: var(--accent-border); }
+.plan-pop .plan-profile, .plan-pop .plan-price span { color: var(--navy-200); }
+.plan-pop .plan-price b { color: var(--neutral-0); }
+.plan-pop .plan-items { border-top-color: color-mix(in oklab, white 14%, transparent); }
+.plan-pop .plan-items li { color: var(--navy-100); }
+.plan-pop .plan-items li::before { background: var(--accent); }
+.plan-badge { position: absolute; top: 22px; left: 30px; padding: 5px 13px; border-radius: 999px; background: var(--accent); color: var(--neutral-0); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; z-index: 1; }
+.plans-foot { font-size: 14px; color: var(--text-muted); text-wrap: pretty; }
+.plans-error { grid-column: 1 / -1; border: 1px dashed var(--border-default); border-radius: 16px; padding: 28px; font-size: 15px; color: var(--text-muted); background: var(--surface-card); text-wrap: pretty; }
+.plans-error a { color: var(--accent-strong); font-weight: 600; }
+.plans-loading { grid-column: 1 / -1; display: grid; place-items: center; padding: 40px; }
+.spinner { width: 26px; height: 26px; border: 3px solid var(--border-default); border-top-color: var(--navy-700); border-radius: 50%; animation: spin 800ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Garantias ────────────────────────────────────────────── */
+.guarantees-sec { background: var(--neutral-0); border-top: 1px solid var(--border-subtle); }
+.cards-g { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 18px; }
+.guarantee { background: var(--neutral-50); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 26px 24px; display: flex; flex-direction: column; gap: 10px; transition: transform 200ms var(--ease-standard); }
+.guarantee:hover { transform: translateY(-3px); }
+.rule { width: 26px; height: 3px; border-radius: 2px; background: var(--accent); }
+.guarantee h3 { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--navy-900); letter-spacing: -0.015em; text-wrap: balance; }
+.guarantee p { font-size: 14.5px; line-height: 1.55; color: var(--neutral-600); text-wrap: pretty; }
+
+/* ─── Perguntas ────────────────────────────────────────────── */
+.faq-sec { background: var(--neutral-50); border-top: 1px solid var(--border-subtle); }
+.faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: clamp(28px, 3.5vw, 48px); align-items: start; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.faq-item { background: var(--surface-card); border: 1px solid var(--border-subtle); border-left: 3px solid transparent; border-radius: 12px; overflow: hidden; transition: border-color 160ms ease; }
+.faq-item[open] { border-left-color: var(--accent); }
+.faq-item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 20px 22px; cursor: pointer; list-style: none;
+  font-size: 16.5px; font-weight: 600; color: var(--navy-900); line-height: 1.4; text-wrap: pretty;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary i {
+  width: 34px; height: 34px; flex-shrink: 0; border-radius: 50%;
+  border: 1px solid var(--border-default); background: var(--surface-card);
+  display: grid; place-items: center; font-size: 15px; font-style: normal; color: var(--navy-800);
+  transition: transform 200ms var(--ease-standard);
+}
+.faq-item[open] summary i { transform: rotate(180deg); }
+.faq-item p { padding: 0 60px 22px 22px; font-size: 15.5px; line-height: 1.6; color: var(--neutral-600); animation: belia-abrir 200ms var(--ease-entrance) both; text-wrap: pretty; }
+.aside-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+.aside-card h3 { font-family: var(--font-serif); font-size: 19px; font-weight: 600; color: var(--navy-900); letter-spacing: -0.015em; }
+.aside-card p { font-size: 14.5px; line-height: 1.55; color: var(--neutral-600); text-wrap: pretty; }
+.aside-card .btn { align-self: flex-start; margin-top: 4px; height: 42px; padding: 0 20px; font-size: 14.5px; font-weight: 500; }
+.faq-aside { display: flex; flex-direction: column; gap: 18px; min-width: 0; position: sticky; top: 96px; }
+.quote { background: var(--navy-950); color: var(--neutral-0); border-radius: 16px; padding: 26px 24px; position: relative; overflow: hidden; }
+.quote::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(80% 70% at 90% 0%, color-mix(in oklab, var(--accent) 20%, transparent) 0%, transparent 60%); }
+.quote p { position: relative; font-family: var(--font-serif); font-size: 20px; line-height: 1.35; letter-spacing: -0.015em; text-wrap: balance; }
+.quote span { position: relative; display: block; margin-top: 12px; font-size: 13px; color: var(--navy-200); }
+@media (max-width: 900px) { .faq-aside { position: static; } }
+
+/* ─── Cadastro ─────────────────────────────────────────────── */
+.signup-sec { background: var(--neutral-50); padding: 0 clamp(8px, 1.4vw, 18px) clamp(20px, 2.5vw, 32px); }
+.signup-slab { max-width: 1240px; margin: 0 auto; background: var(--navy-950); border-radius: 28px; position: relative; overflow: hidden; }
+.signup-slab::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(80% 70% at 15% 100%, color-mix(in oklab, var(--accent) 20%, transparent) 0%, transparent 60%); }
+.signup-inner {
+  position: relative; padding: clamp(48px, 6vw, 84px) clamp(24px, 4vw, 64px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(40px, 5vw, 72px); align-items: center;
+}
+.signup-copy { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.signup-copy h2 { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 52px); line-height: 1.05; font-weight: 600; letter-spacing: -0.025em; color: var(--neutral-0); text-wrap: balance; }
+.signup-copy > p { font-size: 17px; line-height: 1.55; color: var(--navy-100); max-width: 28em; text-wrap: pretty; }
+.signup-points { display: flex; flex-direction: column; gap: 13px; }
+.signup-points li { display: flex; align-items: baseline; gap: 12px; font-size: 15.5px; color: var(--navy-100); text-wrap: pretty; }
+.signup-points li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; transform: translateY(-4px); }
+.form-card { background: var(--surface-card); border-radius: 20px; padding: clamp(26px, 3vw, 36px); box-shadow: 0 34px 80px color-mix(in oklab, black 45%, transparent); min-width: 0; }
+.form-card form { display: flex; flex-direction: column; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field label { font-size: 13.5px; font-weight: 500; color: var(--text-strong); }
+.field .opt { color: var(--text-subtle); font-weight: 400; }
+.field input, .field select {
+  height: 48px; padding: 0 15px; font: inherit; font-size: 15px; color: var(--text-strong);
+  background: var(--surface-card); border: 1px solid var(--border-default); border-radius: 10px;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.field input::placeholder { color: var(--text-disabled); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--navy-500); box-shadow: var(--focus-ring); }
+.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--danger-600); }
+.field .hint { font-size: 12.5px; color: var(--text-muted); }
+.field .err { font-size: 12.5px; color: var(--danger-600); font-weight: 500; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+.form-error { padding: 12px 14px; border-radius: 10px; background: var(--danger-50); border: 1px solid var(--danger-100); color: var(--danger-600); font-size: 14px; }
+.form-submit { height: 52px; width: 100%; border: none; border-radius: 999px; background: var(--navy-800); color: var(--neutral-0); font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 4px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: background-color 140ms ease, transform 160ms ease; }
+.form-submit:hover:not(:disabled) { background: var(--navy-950); transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.7; cursor: default; }
+.form-foot { font-size: 12.5px; color: var(--text-muted); text-align: center; text-wrap: pretty; }
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.done { display: flex; flex-direction: column; gap: 12px; text-align: center; }
+.done .check { width: 52px; height: 52px; margin: 0 auto; border-radius: 50%; background: color-mix(in oklab, var(--success-600) 12%, transparent); color: var(--success-600); display: grid; place-items: center; }
+.done .check svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.done h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 600; color: var(--navy-900); }
+.done > p { font-size: 15px; color: var(--neutral-600); text-wrap: pretty; }
+.done dl { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.done dl div { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--border-subtle); }
+.done dt { font-size: 13px; color: var(--text-muted); }
+.done dd { margin: 0; font-size: 13.5px; font-weight: 600; color: var(--text-strong); text-align: right; }
+
+/* ─── Rodapé ───────────────────────────────────────────────── */
+.site-footer { background: var(--neutral-50); }
+.footer-grid { max-width: 1200px; margin: 0 auto; padding: clamp(40px, 5vw, 56px) var(--pad-x) 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 36px; }
+.footer-brand { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.footer-brand p { font-size: 14px; line-height: 1.55; color: var(--text-muted); max-width: 26em; text-wrap: pretty; }
+.footer-col { display: flex; flex-direction: column; gap: 11px; min-width: 0; }
+.footer-col b { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-subtle); }
+.footer-col a { font-size: 14px; color: var(--neutral-600); transition: color 140ms ease; }
+.footer-col a:hover { color: var(--navy-900); }
+.footer-bottom { max-width: 1200px; margin: 0 auto; padding: 18px var(--pad-x) 30px; border-top: 1px solid var(--border-subtle); font-size: 13px; color: var(--text-subtle); }
+
+/* ─── Voltar ao topo ───────────────────────────────────────── */
 .to-top {
-  position: fixed; right: 22px; bottom: 22px; z-index: 60;
+  position: fixed; right: 20px; bottom: 20px; z-index: 40;
   width: 44px; height: 44px; border-radius: 50%;
+  background: var(--navy-900); color: var(--neutral-0);
   display: grid; place-items: center;
-  background: var(--navy-800); color: #fff; border: 0; cursor: pointer;
-  box-shadow: var(--shadow-lg);
-  /* Escondido de verdade quando não serve: sem `visibility`, o botão
-     transparente continuaria roubando o clique do canto da tela. */
-  opacity: 0; visibility: hidden; transform: translateY(10px);
-  transition: opacity .2s, transform .2s, visibility .2s, background .15s;
+  box-shadow: 0 10px 26px color-mix(in oklab, var(--navy-950) 30%, transparent);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms;
 }
 .to-top.on { opacity: 1; visibility: visible; transform: none; }
-.to-top:hover { background: var(--navy-900); color: #fff; }
-.to-top:focus-visible { outline-offset: 4px; }
-.to-top svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-@media (max-width: 560px) { .to-top { right: 16px; bottom: 16px; } }
-
-/* ─── Rodapé ─────────────────────────────────────────────────────── */
-footer.site { background: var(--navy-950); color: var(--navy-300); padding: 52px 0 40px; }
-.foot-grid { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
-footer.site .brand { color: #fff; }
-footer.site .brand:hover { color: #fff; }
-footer.site .mark { background: oklch(1 0 0 / 0.14); }
-.foot-tag { margin-top: 12px; font-size: 13.5px; max-width: 320px; line-height: 1.6; color: var(--navy-300); }
-.foot-links { display: flex; gap: 44px; flex-wrap: wrap; font-size: 14px; }
-.foot-links div { display: grid; gap: 10px; align-content: start; }
-.foot-links strong { font: 600 11px/1 var(--font-sans); letter-spacing: .09em; text-transform: uppercase; color: oklch(1 0 0 / 0.45); }
-.foot-links a { color: var(--navy-200); }
-.foot-links a:hover { color: #fff; }
-.foot-bottom { margin-top: 40px; padding-top: 22px; border-top: 1px solid oklch(1 0 0 / 0.1); font-size: 12.5px; color: var(--navy-400); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.to-top svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap top-inner">
-    <a class="brand" href="#topo">
-      <span class="mark" aria-hidden="true">B</span>
-      <span class="brand-name">Belia <span>Mishpat</span></span>
-    </a>
-    <nav class="menu" aria-label="Seções">
-      <a class="link" href="#recursos">O que ele faz</a>
-      <a class="link" href="#planos">Planos</a>
-      <a class="link" href="#perguntas">Perguntas</a>
-    </nav>
-    <div class="top-actions">
-      <a class="btn btn-ghost hide-sm" id="login-top" href="#">Entrar</a>
-      <a class="btn btn-primary" href="#teste">Testar grátis</a>
+<!-- ─── Nav em pílula ──────────────────────────────────────────── -->
+<div class="nav-wrap">
+  <header class="nav" id="topo">
+    <div class="nav-bar">
+      <a class="brand" href="#topo" aria-label="Belia Mishpat, ir ao topo">
+        <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
+          <defs>
+            <linearGradient id="seloNav" x1="0" y1="0" x2="0.35" y2="1">
+              <stop offset="0" style="stop-color: var(--navy-800);"></stop>
+              <stop offset="1" style="stop-color: var(--navy-950);"></stop>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="40" height="40" rx="11" fill="url(#seloNav)"></rect>
+          <rect x="3.4" y="3.4" width="33.2" height="33.2" rx="8.2" fill="none" style="stroke: var(--neutral-0); stroke-opacity: 0.22; stroke-width: 0.9;"></rect>
+          <text x="20" y="25" text-anchor="middle" style="font-family: var(--font-serif); font-size: 21.5px; font-weight: 700; fill: var(--neutral-0); letter-spacing: 0.3px;">M</text>
+          <rect x="12.6" y="28.4" width="14.8" height="1.7" rx="0.85" style="fill: var(--accent);"></rect>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-over">Belia</span>
+          <span class="brand-name">Mishpat</span>
+        </span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#planilha">Por que trocar</a>
+        <a href="#recursos">O que ele faz</a>
+        <a href="#planos">Planos</a>
+        <a href="#perguntas">Perguntas</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-login" id="login-top" href="#">Entrar</a>
+        <a class="nav-cta" href="#teste">Testar grátis <span class="dot dot-light" aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="nav-compact">
+        <a class="nav-cta" href="#teste">Testar grátis</a>
+        <button class="nav-burger" type="button" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+          <span aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="nav-drawer" id="menu" hidden>
+      <a href="#planilha">Por que trocar</a>
+      <a href="#recursos">O que ele faz</a>
+      <a href="#planos">Planos</a>
+      <a href="#perguntas">Perguntas</a>
+      <a href="#" id="login-menu">Entrar</a>
+    </div>
+  </header>
+</div>
+
+<main>
+
+<!-- ─── Herói ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <img class="hero-photo" src="assets/heroi-escritorio.jpg" alt="" fetchpriority="high" width="2000" height="1335">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="hero-tag"><i aria-hidden="true"></i>Direito previdenciário</span>
+
+      <h1>Do requerimento no INSS à sentença, <em>sem perder um prazo</em>.</h1>
+
+      <p class="hero-sub">Exigência, perícia, avaliação social, honorário. O sistema conhece cada etapa do previdenciário e mostra o que precisa ser feito hoje — nas duas frentes do mesmo segurado.</p>
+
+      <div class="hero-btns">
+        <a class="btn btn-lg btn-light" href="#teste">Criar meu ambiente <span class="dot" aria-hidden="true">→</span></a>
+        <a class="btn btn-lg btn-outline-light" href="#planilha">Por que sair da planilha</a>
+      </div>
+
+      <p class="hero-note">14 dias com tudo liberado. Sem cartão, sem fidelidade, sem cobrança automática no fim.</p>
+    </div>
+
+    <div class="hero-side">
+      <div class="today">
+        <span class="today-label">Hoje no seu escritório</span>
+        <ul>
+          <li><i aria-hidden="true"></i><span><b>Exigência a cumprir</b><small>NB 31/700.123.456-7 · vence hoje</small></span></li>
+          <li><i aria-hidden="true"></i><span><b>Perícia sem resultado registrado</b><small>Realizada em 04/08/2026</small></span></li>
+          <li><i aria-hidden="true"></i><span><b>Réplica na 17ª Vara Federal</b><small>0048115-02.2026 · em 3 dias</small></span></li>
+        </ul>
+        <span class="today-foot">Chega por e-mail e Telegram antes de o expediente começar.</span>
+      </div>
     </div>
   </div>
-</header>
 
-<main id="topo">
-
-<!-- ─── Hero ───────────────────────────────────────────────────── -->
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <span class="pill"><span class="dot" aria-hidden="true"></span> 14 dias grátis, sem cartão</span>
-        <h1>Todo o seu escritório <em>numa tela só</em>.</h1>
-        <p class="hero-sub">
-          Clientes, prazos, perícias, documentos e honorários organizados por caso.
-          Você abre o processo e vê o que precisa ser feito hoje.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-primary btn-lg" href="#teste">Criar meu ambiente</a>
-          <a class="btn btn-ghost btn-lg" href="#recursos">Ver o que ele faz</a>
-        </div>
-        <p class="hero-note">Pronto em menos de um minuto. Cancele quando quiser.</p>
-      </div>
-
-      <!-- Uma tela do sistema, desenhada em HTML: mostra a ferramenta em vez
-           de descrevê-la. -->
-      <div class="shot" role="img" aria-label="Tela do sistema mostrando um requerimento em exigência, com os avisos do que está pendente e os botões do próximo passo.">
-        <div class="shot-bar">
-          <i></i><i></i><i></i>
-          <span>Aposentadoria por incapacidade · José da Silva</span>
-        </div>
-        <div class="shot-body">
-          <div class="shot-side">
-            <div class="grp">Atendimento</div>
-            <a>Painel</a>
-            <a class="on">Clientes</a>
-            <a>Agenda</a>
-            <div class="grp">Trabalho</div>
-            <a>Prazos</a>
-            <a>Processos</a>
-            <div class="grp">Escritório</div>
-            <a>Financeiro</a>
-            <a>Parceiros</a>
-          </div>
-          <div class="shot-main">
-            <div class="shot-title">
-              <div>
-                <h4>Requerimento administrativo</h4>
-                <span class="cnj">NB 31/700.123.456-7 · DER 12/03/2026</span>
-              </div>
-              <span class="tag tag-warn">Em exigência</span>
-            </div>
-
-            <div class="alert">
-              <span aria-hidden="true">!</span>
-              <span>Exigência sem prazo na agenda.</span>
-            </div>
-            <div class="alert warn">
-              <span aria-hidden="true">!</span>
-              <span>A perícia de 04/08 já passou e ninguém disse o que aconteceu.</span>
-            </div>
-
-            <div class="shot-steps">
-              <span class="step primary">Cumprir exigência</span>
-              <span class="step">Registrar laudo</span>
-              <span class="step">Remarcar perícia</span>
-              <span class="step">Registrar falta</span>
-            </div>
-
-            <div class="shot-table">
-              <div class="th"><span>Agenda do processo</span><span>Data</span><span>Situação</span></div>
-              <div class="tr"><span>Prazo da exigência</span><span class="mono">—</span><span class="tag tag-dang">Sem prazo</span></div>
-              <div class="tr"><span>Perícia médica</span><span class="mono">04/08/2026</span><span class="tag tag-info">Marcada</span></div>
-              <div class="tr"><span>Avaliação social</span><span class="mono">19/08/2026</span><span class="tag tag-ok">Realizada</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="facts">
+    <div class="facts-grid">
+      <div class="fact"><b>2</b><span>frentes por segurado — o pedido no INSS e a ação na Justiça</span></div>
+      <div class="fact"><b>14 dias</b><span>de teste com tudo liberado, sem cartão de crédito</span></div>
+      <div class="fact"><b>4 campos</b><span>entre você e o sistema funcionando</span></div>
+      <div class="fact"><b>0</b><span>fidelidade, multa ou cobrança automática</span></div>
     </div>
+  </div>
+</section>
 
-    <div class="hero-foot">
-      <ul>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Prazos e perícias em ordem</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Avisos por e-mail e Telegram</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Honorários e comissões</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Documentos guardados por caso</li>
+<!-- ─── Por dentro do sistema ──────────────────────────────────── -->
+<section>
+  <div class="inside">
+    <div class="inside-copy">
+      <span class="eyebrow-pill">Por dentro do sistema</span>
+      <h2 class="h2">Abriu o caso, já sabe o que fazer</h2>
+      <p class="lead" style="font-size:16.5px; max-width:30em">O que a planilha não mostra: a exigência que ficou sem prazo, a perícia que passou sem resultado, e as ações possíveis ali mesmo, sem sair da tela.</p>
+      <ul class="bullets">
+        <li>Cada exigência com prazo próprio, separada do prazo judicial.</li>
+        <li>Perícia e avaliação social com data, situação e desfecho.</li>
+        <li>As ações possíveis no próprio caso, sem procurar em outra tela.</li>
       </ul>
     </div>
-  </div>
-</section>
 
-<!-- ─── Recursos ───────────────────────────────────────────────── -->
-<section id="recursos">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>O que muda na rotina do escritório</h2>
-      <p>Menos planilha ao lado, menos "onde foi parar aquele prazo".</p>
-    </div>
+    <div class="mock-holder">
+      <div class="mock" aria-label="Exemplo de um caso na tela do sistema">
+        <div class="mock-bar">
+          <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+          <span>Aposentadoria por incapacidade · José da Silva</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-top">
+            <div>
+              <b>Requerimento administrativo</b>
+              <small>NB 31/700.123.456-7 · DER 12/03/2026</small>
+            </div>
+            <span class="chip-warn"><i aria-hidden="true"></i>Em exigência</span>
+          </div>
 
-    <div class="grid grid-3" style="margin-top:44px">
-      <article class="card">
-        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h11l5 5v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/><path d="M15 5v5h5"/><path d="M7 14h8M7 17h5"/></svg></div>
-        <h3>Cada cliente, cada caso</h3>
-        <p>O segurado, os casos dele e as duas frentes — o pedido no INSS e a ação na Justiça — no mesmo lugar.</p>
-      </article>
+          <div class="alerts">
+            <div class="alert alert-danger">Exigência sem prazo na agenda.</div>
+            <div class="alert alert-warn">A perícia de 04/08 já passou e ninguém registrou o resultado.</div>
+          </div>
 
-      <article class="card">
-        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 6v6h4.5"/><circle cx="12" cy="12" r="9"/></svg></div>
-        <h3>Nenhum prazo passa batido</h3>
-        <p>Prazos, perícias e audiências na agenda, com aviso todo dia de manhã no seu e-mail e no Telegram.</p>
-      </article>
+          <div style="display:flex; flex-direction:column; gap:8px">
+            <span class="mock-label">Próximo passo</span>
+            <div class="steps-chips">
+              <span class="chip chip-primary">Cumprir exigência</span>
+              <span class="chip">Registrar laudo</span>
+              <span class="chip">Remarcar perícia</span>
+            </div>
+          </div>
 
-      <article class="card">
-        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 11l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
-        <h3>O próximo passo à vista</h3>
-        <p>Abriu o processo, já aparece o que fazer: cumprir a exigência, registrar o laudo, entrar com a ação.</p>
-      </article>
-
-      <article class="card">
-        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><path d="M8 15h3"/></svg></div>
-        <h3>Perícias sob controle</h3>
-        <p>Marcada, remarcada, realizada ou o cliente faltou. Cada uma com a sua data e o seu resultado.</p>
-      </article>
-
-      <article class="card">
-        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg></div>
-        <h3>Honorários em dia</h3>
-        <p>Contrato, parcelas, o que já entrou e o que falta. A comissão do parceiro sai junto com o que o cliente pagou.</p>
-      </article>
-
-      <article class="card">
-        <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19.5 14.25v-2.6a3.4 3.4 0 0 0-3.4-3.4h-1.5a1.1 1.1 0 0 1-1.1-1.1v-1.5a3.4 3.4 0 0 0-3.4-3.4H8.25"/><path d="M10.5 2.25H5.6c-.6 0-1.1.5-1.1 1.1v17.3c0 .6.5 1.1 1.1 1.1h12.8c.6 0 1.1-.5 1.1-1.1V11.25a9 9 0 0 0-9-9Z"/></svg></div>
-        <h3>Documento no lugar certo</h3>
-        <p>Procuração, laudo, comprovante de pagamento. Tudo guardado no caso e na parcela a que pertence.</p>
-      </article>
+          <div class="mock-agenda">
+            <span class="mock-label">Agenda do processo</span>
+            <div><span>Prazo da exigência</span><span class="when">—</span><span class="state">Sem prazo</span></div>
+            <div><span>Perícia médica</span><span class="when">04/08/2026</span><span class="state">Marcada</span></div>
+            <div><span>Avaliação social</span><span class="when">19/08/2026</span><span class="state">Realizada</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ─── Confiança ──────────────────────────────────────────────── -->
-<section class="dark">
-  <div class="wrap">
-    <div class="section-head" style="max-width:620px">
-      <h2>O que você não precisa se preocupar</h2>
+<!-- ─── O escritório depois do Mishpat ─────────────────────────── -->
+<section class="gains-sec">
+  <div class="wrap gains">
+    <div class="gains-copy reveal">
+      <span class="eyebrow-pill">O escritório depois do Mishpat</span>
+      <h2 class="h2">Menos conferência, mais advocacia</h2>
+      <p class="lead" style="font-size:16.5px; max-width:30em">O tempo que hoje se gasta procurando, conferindo e lembrando volta para o que dá resultado: atender, peticionar e receber.</p>
+
+      <figure class="photo photo-tall">
+        <img src="assets/vocabulario-justica.jpg" loading="lazy" width="801" height="1200"
+             alt="Advogada lendo um documento à mesa do escritório, com a estátua da Justiça em primeiro plano.">
+      </figure>
+
+      <div class="vocab">
+        <div class="vocab-head">
+          <span>O vocabulário do previdenciário</span>
+          <b>O sistema fala a sua língua</b>
+        </div>
+        <dl class="vocab-list">
+          <div><dt>DER</dt><dd>A data de entrada do requerimento, com a agência onde ele foi protocolado.</dd></div>
+          <div><dt>NB</dt><dd>O número do benefício, na ficha e no aviso — não numa observação solta.</dd></div>
+          <div><dt>Exigência</dt><dd>Pedido do INSS, com prazo próprio na agenda até ser cumprida.</dd></div>
+          <div><dt>Perícia</dt><dd>Marcada, remarcada, realizada, com falta do cliente ou cancelada.</dd></div>
+          <div><dt>CNJ</dt><dd>O número da ação, a vara e a fase, ligados ao requerimento que a originou.</dd></div>
+        </dl>
+      </div>
     </div>
 
-    <div class="grid grid-3" style="margin-top:40px">
-      <article class="card">
-        <h3>Os dados são do escritório</h3>
-        <p>As informações dos seus clientes ficam separadas das de qualquer outro escritório, e ninguém da nossa equipe abre a ficha de um cliente seu.</p>
-      </article>
-      <article class="card">
-        <h3>Nada se perde</h3>
-        <p>Excluiu sem querer, é só restaurar. E atraso na mensalidade bloqueia o acesso até acertar — nunca apaga o que você guardou.</p>
-      </article>
-      <article class="card">
-        <h3>Cada um vê o que lhe cabe</h3>
-        <p>Advogado, estagiário, secretaria e financeiro com acessos separados, e um registro de quem fez o quê.</p>
-      </article>
+    <div style="display:flex; flex-direction:column; min-width:0">
+      <div class="gain">
+        <h3>A segunda-feira já começa resolvida</h3>
+        <p>Antes das oito da manhã você sabe o que o dia exige, sem abrir planilha, agenda e caixa de entrada para descobrir.</p>
+      </div>
+      <div class="gain">
+        <h3>Ninguém precisa perguntar “em que pé está?”</h3>
+        <p>Advogado, estagiário ou secretaria abre o caso e vê a mesma coisa: o que já foi feito e o que vem agora.</p>
+      </div>
+      <div class="gain">
+        <h3>O cliente liga e você responde na hora</h3>
+        <p>Sem “vou verificar e te retorno”. A resposta está na tela enquanto ele ainda está no telefone.</p>
+      </div>
+      <div class="gain">
+        <h3>A mesma equipe dá conta de mais casos</h3>
+        <p>O tempo que ia embora conferindo pendência volta para atendimento e petição — sem contratar mais gente.</p>
+      </div>
+      <div class="gain">
+        <h3>O fim do mês para de ser surpresa</h3>
+        <p>O que entrou, o que está atrasado e quanto é do parceiro, sempre à vista. Cobrança deixa de depender de memória.</p>
+      </div>
+      <div class="gain">
+        <h3>Dá para tirar férias sem travar o escritório</h3>
+        <p>Quem fica assume os prazos e os clientes sem depender do que estava só na sua cabeça.</p>
+      </div>
+      <p class="gains-foot">Nada disso exige mudar o jeito como o escritório trabalha. Exige parar de guardar as coisas em lugares diferentes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── O que muda na rotina ───────────────────────────────────── -->
+<section id="planilha">
+  <div class="wrap routine">
+    <div class="routine-head reveal">
+      <div class="head">
+        <span class="eyebrow">O que muda na rotina</span>
+        <h2 class="h2">Quatro coisas que a planilha não faz por você</h2>
+      </div>
+      <p>A planilha só guarda o que alguém lembrou de digitar. Estas quatro cenas acontecem em todo escritório previdenciário — e o Mishpat responde a cada uma.</p>
+    </div>
+
+    <div class="cards-4">
+      <div class="pain reveal">
+        <span class="pain-n">01</span>
+        <h3>A exigência sem prazo</h3>
+        <p>A exigência chega, alguém anota na planilha e ninguém coloca prazo. O sistema jurídico comum não sabe o que é exigência.</p>
+        <p class="after">Toda exigência entra com prazo próprio na agenda e aparece no aviso da manhã até ser cumprida.</p>
+      </div>
+      <div class="pain pain-dark reveal">
+        <span class="pain-n">02</span>
+        <h3>A perícia em branco</h3>
+        <p>A perícia passou e ninguém registrou o resultado. Descobre-se semanas depois, quando o processo trava.</p>
+        <p class="after">Marcada, remarcada, realizada ou o cliente faltou — cada perícia com data e desfecho registrados.</p>
+      </div>
+      <div class="pain reveal">
+        <span class="pain-n">03</span>
+        <h3>O honorário de cabeça</h3>
+        <p>O contrato está numa pasta, as parcelas noutra, e a comissão do parceiro sai de cabeça.</p>
+        <p class="after">Contrato, parcelas e o que já entrou por caso. A comissão do parceiro é calculada sobre o que o cliente efetivamente pagou.</p>
+      </div>
+      <div class="pain reveal">
+        <span class="pain-n">04</span>
+        <h3>O caso sem próximo passo</h3>
+        <p>Abrir o caso e não saber o que fazer: reler o histórico inteiro para descobrir onde parou.</p>
+        <p class="after">Abriu o processo, já aparece o próximo passo — cumprir a exigência, registrar o laudo, entrar com a ação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── As duas frentes ────────────────────────────────────────── -->
+<section id="recursos" class="fronts-sec">
+  <div class="wrap" style="display:flex; flex-direction:column; gap:clamp(36px, 4vw, 52px)">
+    <div class="head reveal">
+      <span class="eyebrow">Administrativo e judicial</span>
+      <h2 class="h2">As duas frentes do mesmo segurado, no mesmo lugar</h2>
+      <p class="lead">O pedido no INSS e a ação na Justiça têm dados e prazos diferentes. O Mishpat trata cada um como ele é — e mostra os dois juntos na ficha do cliente.</p>
+    </div>
+
+    <div class="cards-2">
+      <div class="front reveal">
+        <span class="front-org">INSS</span>
+        <h3>Requerimento administrativo</h3>
+        <p>O pedido no INSS com os dados que ele realmente tem — e o controle de exigência que sistema nenhum oferece.</p>
+        <ul class="bullets">
+          <li>Protocolo e NB</li>
+          <li>DER e agência (APS)</li>
+          <li>Exigências com prazo próprio</li>
+          <li>Perícia e avaliação social</li>
+          <li>Resultado da análise</li>
+        </ul>
+      </div>
+      <div class="front reveal">
+        <span class="front-org">Justiça Federal</span>
+        <h3>Ação judicial</h3>
+        <p>A ação com número CNJ, vara e fase, ligada ao requerimento que a originou. Um clique entre as duas frentes.</p>
+        <ul class="bullets">
+          <li>Número CNJ e vara/juizado</li>
+          <li>Fase e situação processual</li>
+          <li>Prazos em dias úteis</li>
+          <li>Andamentos sincronizados</li>
+          <li>Vínculo com o requerimento</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Do cadastro ao primeiro aviso ──────────────────────────── -->
+<section class="slab-sec">
+  <div class="slab">
+    <div class="slab-inner">
+      <div class="slab-copy">
+        <span class="eyebrow">Processo simples e transparente</span>
+        <h2 class="h2 h2-dark">Do cadastro ao primeiro aviso, no mesmo dia</h2>
+        <p>Sem implantação, sem treinamento pago, sem consultor. O escritório entra sozinho e o sistema começa a avisar.</p>
+        <a class="btn btn-md btn-light" href="#teste">Começar agora <span class="dot dot-sm" aria-hidden="true">→</span></a>
+
+        <figure class="photo photo-wide">
+          <img src="assets/processo-assinatura.jpg" loading="lazy" width="1400" height="934"
+               alt="Advogada assinando documentos na mesa do escritório.">
+        </figure>
+      </div>
+
+      <div style="display:flex; flex-direction:column; min-width:0">
+        <div class="step"><span class="step-n">1</span><div><b>Crie o ambiente</b><span>Nome do escritório, e-mail e senha. Você já entra no sistema.</span></div></div>
+        <div class="step"><span class="step-n">2</span><div><b>Cadastre um caso real</b><span>Um segurado, o requerimento ou a ação, e os prazos que já existem.</span></div></div>
+        <div class="step"><span class="step-n">3</span><div><b>Convide a equipe</b><span>Advogado, estagiário, secretaria e financeiro — cada um vê o que lhe cabe.</span></div></div>
+        <div class="step"><span class="step-n">4</span><div><b>Receba o aviso da manhã</b><span>No dia seguinte, prazos e perícias chegam por e-mail e Telegram antes de o expediente começar.</span></div></div>
+
+        <div class="morning">
+          <div class="morning-head">
+            <b>O aviso da manhã</b>
+            <span>07:00 · e-mail e Telegram</span>
+          </div>
+          <ul>
+            <li>2 prazos vencem hoje — 1 exigência e 1 réplica.</li>
+            <li>Perícia de amanhã: JOSÉ DA SILVA, 8h30, APS Centro.</li>
+            <li>1 perícia realizada continua sem resultado registrado.</li>
+          </ul>
+          <span class="morning-foot">Escritório sem nada do dia não recebe mensagem — “nada para hoje” diário ensina a não abrir o aviso.</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ─── Planos ─────────────────────────────────────────────────── -->
-<section id="planos">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Planos</h2>
-      <p>Cada plano acompanha um tamanho de escritório: quantas pessoas usam, quantos casos cabem e quanto espaço os documentos ocupam.</p>
+<section id="planos" class="plans-sec">
+  <div class="wrap" style="display:flex; flex-direction:column; gap:clamp(36px, 4vw, 52px)">
+    <div class="head reveal">
+      <span class="eyebrow">Preço na mesa</span>
+      <h2 class="h2">Valores abertos. Sem “fale com um consultor”.</h2>
+      <p class="lead">Cada plano acompanha um tamanho de escritório. Chegou ao teto, nada do que você cadastrou é afetado — só fale com a gente para subir.</p>
     </div>
 
-    <div class="plans" id="plans" aria-live="polite" aria-busy="true">
-      <div class="plan-skeleton"></div>
-      <div class="plan-skeleton"></div>
-      <div class="plan-skeleton"></div>
-      <div class="plan-skeleton"></div>
+    <div class="plans-grid" id="plans" aria-live="polite" aria-busy="true">
+      <div class="plans-loading"><span class="spinner" role="status" aria-label="Carregando os planos"></span></div>
     </div>
 
-    <p class="plans-note">Chegou ao teto? Nada do que você já cadastrou é afetado — é só falar com a gente para subir de plano.</p>
+    <p class="plans-foot">Todos os planos incluem as duas frentes (administrativo e judicial), avisos por e-mail e Telegram, controle de honorários e comissões, e exportação das suas listas em planilha a qualquer momento.</p>
   </div>
 </section>
 
-<!-- ─── Cadastro ───────────────────────────────────────────────── -->
-<section id="teste" class="dark">
-  <div class="wrap signup">
-    <div>
-      <h2>Experimente por 14 dias.</h2>
-      <ul class="signup-points">
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>Tudo liberado durante o teste.</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>Sem cartão de crédito e sem cobrança automática no fim.</span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          <span>Você mesmo cadastra a equipe e define o que cada um acessa.</span>
-        </li>
-      </ul>
+<!-- ─── Garantias ──────────────────────────────────────────────── -->
+<section class="guarantees-sec">
+  <div class="wrap" style="display:flex; flex-direction:column; gap:clamp(32px, 4vw, 44px)">
+    <div class="head reveal">
+      <span class="eyebrow">Sem letra miúda</span>
+      <h2 class="h2">Somos novos. É justo você querer garantias.</h2>
+      <p class="lead">A Belia Mishpat começou agora, e não vamos inventar depoimento nem número de cliente que não temos. O que temos é isto, por escrito:</p>
     </div>
 
-    <div class="form-card">
-      <form id="signup" novalidate>
-        <div class="form-error" id="form-error" hidden></div>
-
-        <div class="field">
-          <label for="firmName">Nome do escritório</label>
-          <input id="firmName" name="firmName" type="text" required minlength="3" maxlength="120"
-                 autocomplete="organization" placeholder="Silva &amp; Associados">
-          <p class="err" id="err-firmName" hidden></p>
-        </div>
-
-        <div class="row">
-          <div class="field">
-            <label for="ownerName">Seu nome</label>
-            <input id="ownerName" name="ownerName" type="text" required minlength="3" maxlength="120"
-                   autocomplete="name" placeholder="Maria Silva">
-            <p class="err" id="err-ownerName" hidden></p>
-          </div>
-          <div class="field">
-            <label for="phone">Telefone <span class="opt">(opcional)</span></label>
-            <input id="phone" name="phone" type="tel" maxlength="16" autocomplete="tel"
-                   inputmode="numeric" placeholder="(85) 99999-0000">
-            <p class="err" id="err-phone" hidden></p>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="ownerEmail">E-mail</label>
-          <input id="ownerEmail" name="ownerEmail" type="email" required maxlength="200"
-                 autocomplete="email" placeholder="voce@escritorio.com.br">
-          <p class="err" id="err-ownerEmail" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="password">Senha</label>
-          <input id="password" name="password" type="password" required minlength="8" maxlength="128"
-                 autocomplete="new-password" placeholder="Ao menos 8 caracteres">
-          <p class="hint">É com ela que você entra logo depois.</p>
-          <p class="err" id="err-password" hidden></p>
-        </div>
-
-        <div class="field">
-          <label for="plan">Plano</label>
-          <select id="plan" name="plan"></select>
-          <p class="hint">Durante o teste, tudo está liberado — dá para trocar depois.</p>
-          <p class="err" id="err-plan" hidden></p>
-        </div>
-
-        <!-- Campo invisível para gente, irresistível para robô de formulário. -->
-        <div class="trap" aria-hidden="true">
-          <label for="website">Não preencha este campo</label>
-          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
-        </div>
-
-        <button class="btn btn-primary btn-lg" type="submit" id="submit" style="width:100%">
-          Criar meu ambiente
-        </button>
-
-        <p class="form-foot">Leva menos de um minuto e você já entra no sistema.</p>
-      </form>
-
-      <div class="done" id="done" hidden>
-        <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-        <h3>Tudo pronto</h3>
-        <p id="done-msg"></p>
-        <dl id="done-details"></dl>
-        <a class="btn btn-primary btn-lg" id="done-login" href="#" style="width:100%; margin-top:22px">Entrar no sistema</a>
-        <p class="form-foot">Mandamos estes dados para o seu e-mail também.</p>
+    <div class="cards-g">
+      <div class="guarantee">
+        <span class="rule" aria-hidden="true"></span>
+        <h3>Sem fidelidade</h3>
+        <p>Mensal. Você sai no mês seguinte se quiser, sem multa e sem conversa de retenção.</p>
+      </div>
+      <div class="guarantee">
+        <span class="rule" aria-hidden="true"></span>
+        <h3>Seus dados saem com você</h3>
+        <p>Listas e relatórios em planilha pelo próprio sistema, a qualquer momento. Para uma cópia completa, basta pedir.</p>
+      </div>
+      <div class="guarantee">
+        <span class="rule" aria-hidden="true"></span>
+        <h3>Nada é apagado</h3>
+        <p>Excluiu sem querer, restaura. Atraso na mensalidade bloqueia o acesso até acertar — nunca apaga o que você guardou.</p>
+      </div>
+      <div class="guarantee">
+        <span class="rule" aria-hidden="true"></span>
+        <h3>Ninguém lê a ficha do seu cliente</h3>
+        <p>Nossa equipe vê o cadastro do escritório e a mensalidade. Se você pedir ajuda, o acesso devolvido não abre processo — e fica registrado no seu sistema.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ─── Perguntas ──────────────────────────────────────────────── -->
-<section id="perguntas">
-  <div class="wrap" style="max-width:840px">
-    <div class="section-head">
-      <h2>Perguntas frequentes</h2>
+<section id="perguntas" class="faq-sec">
+  <div class="wrap" style="display:flex; flex-direction:column; gap:clamp(28px, 3vw, 40px)">
+    <div class="head" style="max-width:30em">
+      <span class="eyebrow">Perguntas frequentes</span>
+      <h2 class="h2">O que todo mundo pergunta</h2>
     </div>
 
-    <div class="faq">
-      <details open>
-        <summary>Preciso de cartão de crédito para testar?</summary>
-        <p class="answer">Não. São 14 dias com tudo liberado, e no fim quem decide se continua é você.</p>
-      </details>
-      <details>
-        <summary>Vocês acessam os dados dos meus clientes?</summary>
-        <p class="answer">Não. O que a nossa equipe vê é o cadastro do escritório e a mensalidade. Se você pedir ajuda, dá para devolver o acesso de uma conta sem abrir nenhum processo — e fica registrado no seu sistema que fizemos isso.</p>
-      </details>
-      <details>
-        <summary>E se a equipe ou a carteira crescer?</summary>
-        <p class="answer">Cada plano tem um número de contas e de casos, e a tela de configurações mostra o quanto você já usou. Ao chegar ao teto, o que fica indisponível é cadastrar o próximo — tudo o que já existe continua funcionando normalmente, e é só falar com a gente para subir de plano.</p>
-      </details>
-      <details>
-        <summary>Funciona no celular?</summary>
-        <p class="answer">Funciona pelo navegador, sem instalar nada. Para consultar a agenda e responder o que apareceu, dá conta; o trabalho pesado é melhor no computador.</p>
-      </details>
-      <details>
-        <summary>Consigo levar meus dados embora?</summary>
-        <p class="answer">Sim. As listas e os relatórios saem em planilha pelo próprio sistema, e para uma cópia completa é só pedir.</p>
-      </details>
-      <details>
-        <summary>E se eu atrasar a mensalidade?</summary>
-        <p class="answer">Avisamos antes e o acesso continua por alguns dias. Passado esse prazo, o acesso fica bloqueado até acertar — e nada é apagado.</p>
-      </details>
+    <div class="faq-grid">
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Preciso de cartão de crédito para testar?<i aria-hidden="true">↓</i></summary>
+          <p>Não. São 14 dias com tudo liberado, e no fim quem decide se continua é você. Não há cobrança automática.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Vocês são novos no mercado. Por que eu confiaria minha carteira?<i aria-hidden="true">↓</i></summary>
+          <p>Porque você não precisa confiar de antemão. Sem fidelidade, seus dados saem em planilha quando quiser, e nada é apagado nem em caso de atraso. Se o sistema não servir, você sai no mês seguinte levando tudo.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Serve para quem não trabalha só com previdenciário?<i aria-hidden="true">↓</i></summary>
+          <p>O módulo previdenciário é o primeiro e o mais completo. Outras áreas do direito entram nos próximos módulos, dentro do mesmo sistema e do mesmo cadastro de clientes.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Vocês acessam os dados dos meus clientes?<i aria-hidden="true">↓</i></summary>
+          <p>Não. Nossa equipe vê o cadastro do escritório e a mensalidade. Se você pedir ajuda, dá para devolver o acesso de uma conta sem abrir nenhum processo — e fica registrado no seu sistema que fizemos isso.</p>
+        </details>
+        <details class="faq-item">
+          <summary>E se a equipe ou a carteira crescer?<i aria-hidden="true">↓</i></summary>
+          <p>Cada plano tem um número de contas e de casos, e as configurações mostram o quanto você já usou. Ao chegar ao teto, o que fica indisponível é cadastrar o próximo — tudo o que já existe continua funcionando.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Funciona no celular?<i aria-hidden="true">↓</i></summary>
+          <p>Funciona pelo navegador, sem instalar nada. Para consultar a agenda e responder o que apareceu, dá conta; o trabalho pesado é melhor no computador.</p>
+        </details>
+        <details class="faq-item">
+          <summary>E se eu atrasar a mensalidade?<i aria-hidden="true">↓</i></summary>
+          <p>Avisamos antes e o acesso continua por alguns dias. Passado esse prazo, o acesso fica bloqueado até acertar — e nada é apagado.</p>
+        </details>
+      </div>
+
+      <div class="faq-aside">
+        <figure class="photo photo-faq">
+          <img src="assets/faq-atendimento.jpg" loading="lazy" width="734" height="1100"
+               alt="Estátua da Justiça sobre a mesa de trabalho, com documentos ao fundo.">
+        </figure>
+        <div class="quote">
+          <p>“Prazo que some é o que este sistema existe para impedir.”</p>
+          <span>O princípio que guia cada decisão do produto.</span>
+        </div>
+        <div class="aside-card">
+          <span class="rule" aria-hidden="true"></span>
+          <h3>Ficou outra dúvida?</h3>
+          <p>Fale com quem construiu o sistema, não com um roteiro de atendimento.</p>
+          <a class="btn btn-outline" id="contact-faq" href="#">Escrever para a gente <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Cadastro ───────────────────────────────────────────────── -->
+<section id="teste" class="signup-sec">
+  <div class="signup-slab">
+    <div class="signup-inner">
+      <div class="signup-copy">
+        <h2>Quatro campos e você está dentro.</h2>
+        <p>Leva menos de um minuto. Você entra no sistema na hora, com tudo liberado, e cadastra a equipe depois — definindo o que cada um acessa.</p>
+        <ul class="signup-points">
+          <li>Tudo liberado durante os 14 dias, sem versão reduzida.</li>
+          <li>Sem cartão de crédito e sem cobrança automática no fim.</li>
+          <li>Você mesmo cadastra a equipe e define o que cada um acessa.</li>
+        </ul>
+      </div>
+
+      <div class="form-card">
+        <form id="signup" novalidate>
+          <div class="form-error" id="form-error" hidden></div>
+
+          <div class="field">
+            <label for="firmName">Nome do escritório</label>
+            <input id="firmName" name="firmName" type="text" required minlength="3" maxlength="120"
+                   autocomplete="organization" placeholder="Ex.: Braga &amp; Alencar Advocacia">
+            <p class="err" id="err-firmName" hidden></p>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="ownerName">Seu nome</label>
+              <input id="ownerName" name="ownerName" type="text" required minlength="3" maxlength="120"
+                     autocomplete="name" placeholder="Maria Silva">
+              <p class="err" id="err-ownerName" hidden></p>
+            </div>
+            <div class="field">
+              <label for="phone">Telefone <span class="opt">(opcional)</span></label>
+              <input id="phone" name="phone" type="tel" maxlength="16" autocomplete="tel"
+                     inputmode="numeric" placeholder="(85) 99999-0000">
+              <p class="err" id="err-phone" hidden></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ownerEmail">E-mail</label>
+            <input id="ownerEmail" name="ownerEmail" type="email" required maxlength="200"
+                   autocomplete="email" placeholder="seu@escritorio.adv.br">
+            <p class="err" id="err-ownerEmail" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Senha</label>
+            <input id="password" name="password" type="password" required minlength="8" maxlength="128"
+                   autocomplete="new-password" placeholder="Ao menos 8 caracteres">
+            <p class="hint">É com ela que você entra logo depois.</p>
+            <p class="err" id="err-password" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="plan">Plano</label>
+            <select id="plan" name="plan"></select>
+            <p class="hint">Durante o teste, tudo está liberado — dá para trocar depois.</p>
+            <p class="err" id="err-plan" hidden></p>
+          </div>
+
+          <!-- Campo invisível para gente, irresistível para robô de formulário. -->
+          <div class="trap" aria-hidden="true">
+            <label for="website">Não preencha este campo</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button class="form-submit" type="submit" id="submit">
+            Criar meu ambiente <span aria-hidden="true">→</span>
+          </button>
+
+          <p class="form-foot">Sem cartão de crédito. No fim dos 14 dias nada é cobrado automaticamente.</p>
+        </form>
+
+        <div class="done" id="done" hidden>
+          <div class="check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Tudo pronto</h3>
+          <p id="done-msg"></p>
+          <dl id="done-details"></dl>
+          <a class="btn btn-navy btn-block" id="done-login" href="#" style="height:52px; margin-top:14px">Entrar no sistema</a>
+          <p class="form-foot">Mandamos estes dados para o seu e-mail também.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 </main>
 
-<!-- Âncora, e não botão com script: assim o topo continua a um clique mesmo
-     se o JavaScript falhar, e o teclado chega nele na ordem natural. O script
-     só decide quando ele aparece. -->
 <a class="to-top" id="to-top" href="#topo" aria-label="Voltar ao topo da página">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </a>
 
-<footer class="site">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <span class="brand">
-          <span class="mark" aria-hidden="true">B</span>
-          <span class="brand-name" style="color:#fff">Belia Mishpat</span>
+<!-- ─── Rodapé ─────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="#topo">
+        <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+          <defs>
+            <linearGradient id="seloRodape" x1="0" y1="0" x2="0.35" y2="1">
+              <stop offset="0" style="stop-color: var(--navy-800);"></stop>
+              <stop offset="1" style="stop-color: var(--navy-950);"></stop>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="40" height="40" rx="11" fill="url(#seloRodape)"></rect>
+          <rect x="3.4" y="3.4" width="33.2" height="33.2" rx="8.2" fill="none" style="stroke: var(--neutral-0); stroke-opacity: 0.22; stroke-width: 0.9;"></rect>
+          <text x="20" y="25" text-anchor="middle" style="font-family: var(--font-serif); font-size: 21.5px; font-weight: 700; fill: var(--neutral-0); letter-spacing: 0.3px;">M</text>
+          <rect x="12.6" y="28.4" width="14.8" height="1.7" rx="0.85" style="fill: var(--accent);"></rect>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-over">Belia</span>
+          <span class="brand-name" style="font-size:20px">Mishpat</span>
         </span>
-        <p class="foot-tag">Software de gestão para escritórios de advocacia, feito pela Belia Software.</p>
-      </div>
-      <div class="foot-links">
-        <div>
-          <strong>Site</strong>
-          <a href="#recursos">O que ele faz</a>
-          <a href="#planos">Planos</a>
-          <a href="#perguntas">Perguntas</a>
-        </div>
-        <div>
-          <strong>Acesso</strong>
-          <a href="#" id="login-foot">Entrar</a>
-          <a href="#teste">Testar grátis</a>
-        </div>
-        <div>
-          <strong>Contato</strong>
-          <a href="#" id="mail-foot">E-mail</a>
-        </div>
-      </div>
+      </a>
+      <p>Software de gestão para escritórios de advocacia previdenciária, feito pela Belia Software.</p>
     </div>
-    <div class="foot-bottom">
-      <span>&copy; <span id="year">2026</span> Belia Software. Todos os direitos reservados.</span>
-      <span class="mono">Belia Mishpat</span>
+
+    <div class="footer-col">
+      <b>Site</b>
+      <a href="#planilha">Por que trocar</a>
+      <a href="#recursos">O que ele faz</a>
+      <a href="#planos">Planos</a>
+      <a href="#perguntas">Perguntas</a>
     </div>
+
+    <div class="footer-col">
+      <b>Acesso</b>
+      <a href="#" id="login-foot">Entrar</a>
+      <a href="#teste">Testar grátis</a>
+    </div>
+
+    <div class="footer-col">
+      <b>Contato</b>
+      <a href="#" id="mail-foot">E-mail</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; <span id="year">2026</span> Belia Software. Todos os direitos reservados.
   </div>
 </footer>
 
@@ -835,51 +1224,50 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
   const $ = (id) => document.getElementById(id);
 
   document.getElementById('year').textContent = String(new Date().getFullYear());
-  for (const id of ['login-top', 'login-foot']) {
+  for (const id of ['login-top', 'login-menu', 'login-foot']) {
     const el = $(id);
     if (el) el.href = cfg.appUrl;
   }
   const mail = $('mail-foot');
   if (mail) { mail.href = 'mailto:' + cfg.contactEmail; mail.textContent = cfg.contactEmail; }
+  const contact = $('contact-faq');
+  if (contact) contact.href = 'mailto:' + cfg.contactEmail;
 
-  // ─── Trava de rolagem ──────────────────────────────────────────
+  // ─── Menu compacto ─────────────────────────────────────────────
   //
-  // Encaixar a rolagem no começo da seção só faz sentido quando a seção cabe
-  // inteira na janela; numa mais alta que a tela, o encaixe esconderia o fim
-  // dela. Como isso depende da altura da janela e do tamanho da fonte, quem
-  // decide é a medição, e não um palpite escrito no CSS.
-  const sections = [...document.querySelectorAll('main > section')];
+  // A pílula da nav não comporta os quatro links abaixo de 860px — a mesma
+  // largura em que o design troca a barra ampla pelo botão. O CSS decide quem
+  // aparece; aqui só se abre e fecha a gaveta, e ela fecha ao navegar: menu
+  // que continua aberto por cima da seção recém-aberta esconde o destino.
+  const toggle = $('menu-toggle');
+  const menu = $('menu');
 
-  function markSnappable() {
-    // A partir da segunda: o topo da página já é um começo, e encaixá-lo
-    // prendia a rolagem fora dele (ver o comentário no CSS).
-    for (const section of sections.slice(1)) {
-      section.classList.toggle('snap', section.offsetHeight <= window.innerHeight);
-    }
-  }
+  const closeMenu = () => {
+    menu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Abrir menu');
+  };
 
-  markSnappable();
-  window.addEventListener('resize', debounce(markSnappable, 150));
-  // As seções mudam de altura quando os planos chegam da API.
-  window.addEventListener('load', markSnappable);
+  toggle.addEventListener('click', () => {
+    const open = menu.hidden;
+    menu.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  });
+
+  for (const link of menu.querySelectorAll('a')) link.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) closeMenu(); });
+  // Alargou a janela: a barra ampla volta pelo CSS e a gaveta ficaria pendurada.
+  window.matchMedia('(max-width: 860px)').addEventListener('change', closeMenu);
 
   // ─── Voltar ao topo ────────────────────────────────────────────
-
-  const toTop = $('to-top');
-
+  //
   // O botão aparece depois de a pessoa ter descido o equivalente a uma tela:
   // antes disso, o topo está a um golpe de rolagem e o botão seria estorvo.
+  const toTop = $('to-top');
   const onScroll = () => toTop.classList.toggle('on', window.scrollY > window.innerHeight * 0.9);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
-
-  function debounce(fn, wait) {
-    let timer;
-    return () => {
-      clearTimeout(timer);
-      timer = setTimeout(fn, wait);
-    };
-  }
 
   // ─── Planos ────────────────────────────────────────────────────
   //
@@ -891,28 +1279,29 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
   const plansBox = $('plans');
   const planSelect = $('plan');
   const form = $('signup');
-  let plans = [];
 
-  const check = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
   const num = (n) => n.toLocaleString('pt-BR');
-  const usersLabel = (n) => (n > 0 ? (n === 1 ? '1 usuário' : n + ' usuários') : 'Usuários ilimitados');
-  const casesLabel = (n) => (n > 0 ? `Até ${num(n)} casos` : 'Casos ilimitados');
+  const usersLabel = (n) => (n > 0 ? (n === 1 ? '1 conta de acesso' : n + ' contas de acesso') : 'Contas de acesso sem limite');
+  const casesLabel = (n) => (n > 0 ? `${num(n)} casos ativos` : 'Casos ativos sem limite');
 
   function renderPlans(items) {
     plansBox.innerHTML = items.map((p) => `
-      <article class="plan${p.popular ? ' popular' : ''}">
-        ${p.popular ? '<span class="badge">Mais escolhido</span>' : ''}
-        <span class="name">${esc(p.label)}</span>
-        <div class="price"><b>${brl.format(p.price)}</b><small>/mês</small></div>
-        <p class="high">${esc(p.highlight || '')}</p>
-        <ul>
-          <li>${check}<span>${esc(usersLabel(p.users))}</span></li>
-          <li>${check}<span>${esc(casesLabel(p.cases))}</span></li>
-          <li>${check}<span>${p.storageGb} GB de documentos</span></li>
-          <li>${check}<span>Todos os recursos incluídos</span></li>
+      <article class="plan${p.popular ? ' plan-pop' : ''}">
+        ${p.popular ? '<span class="plan-badge">Mais escolhido</span>' : ''}
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <span class="plan-name">${esc(p.label)}</span>
+          <span class="plan-profile">${esc(p.highlight || 'Para o seu escritório')}</span>
+        </div>
+        <div class="plan-price"><b>${brl.format(p.price)}</b><span>/mês</span></div>
+        <ul class="plan-items">
+          <li>${esc(usersLabel(p.users))}</li>
+          <li>${esc(casesLabel(p.cases))}</li>
+          <li>${esc(p.storageGb)} GB de documentos</li>
+          <li>Administrativo e judicial</li>
+          <li>Avisos por e-mail e Telegram</li>
         </ul>
-        <button class="btn ${p.popular ? 'btn-primary' : 'btn-ghost'}" type="button" data-plan="${esc(p.value)}">
-          Começar teste
+        <button class="btn ${p.popular ? 'btn-light' : 'btn-outline'}" type="button" data-plan="${esc(p.value)}">
+          Testar 14 dias${p.popular ? ' <span aria-hidden="true">→</span>' : ''}
         </button>
       </article>
     `).join('');
@@ -921,8 +1310,8 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
     for (const btn of plansBox.querySelectorAll('button[data-plan]')) {
       btn.addEventListener('click', () => {
         planSelect.value = btn.dataset.plan;
-        // Rolar até o cartão, e não até a seção: a seção é alta, e parar no
-        // topo dela deixaria o formulário fora da tela — que é justamente o
+        // Rolar até o formulário, e não até a seção: a seção é alta, e parar
+        // no topo dela deixaria os campos fora da tela — que é justamente o
         // lugar aonde o clique estava indo.
         form.scrollIntoView({ behavior: 'smooth', block: 'center' });
         setTimeout(() => $('firmName').focus({ preventScroll: true }), 500);
@@ -932,8 +1321,6 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
     planSelect.innerHTML = items
       .map((p) => `<option value="${esc(p.value)}"${p.popular ? ' selected' : ''}>${esc(p.label)} — ${brl.format(p.price)}/mês</option>`)
       .join('');
-
-    markSnappable();
   }
 
   function plansUnavailable() {
@@ -949,7 +1336,7 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
   fetch(cfg.apiUrl + '/public/plans', { headers: { Accept: 'application/json' } })
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error('http ' + r.status))))
     .then((body) => {
-      plans = (body && body.data && body.data.items) || [];
+      const plans = (body && body.data && body.data.items) || [];
       if (!plans.length) throw new Error('tabela vazia');
       renderPlans(plans);
     })
@@ -960,6 +1347,12 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
   const submit = $('submit');
   const formError = $('form-error');
   const fields = ['firmName', 'ownerName', 'ownerEmail', 'password', 'phone', 'plan'];
+
+  // O rótulo do botão carrega a seta; trocá-lo por texto puro a perderia.
+  const setSubmit = (label, busy) => {
+    submit.disabled = busy;
+    submit.innerHTML = busy ? esc(label) : `${esc(label)} <span aria-hidden="true">→</span>`;
+  };
 
   $('phone').addEventListener('input', (e) => {
     const d = e.target.value.replace(/\D/g, '').slice(0, 11);
@@ -1039,8 +1432,7 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
       return;
     }
 
-    submit.disabled = true;
-    submit.textContent = 'Criando o ambiente…';
+    setSubmit('Criando o ambiente…', true);
 
     try {
       const res = await fetch(cfg.apiUrl + '/public/signup', {
@@ -1060,8 +1452,7 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
           formError.hidden = false;
         }
         focusFirstInvalid();
-        submit.disabled = false;
-        submit.textContent = 'Criar meu ambiente';
+        setSubmit('Criar meu ambiente', false);
         return;
       }
 
@@ -1069,8 +1460,7 @@ footer.site .mark { background: oklch(1 0 0 / 0.14); }
     } catch {
       formError.textContent = 'Não foi possível falar com o servidor. Verifique a conexão e tente de novo.';
       formError.hidden = false;
-      submit.disabled = false;
-      submit.textContent = 'Criar meu ambiente';
+      setSubmit('Criar meu ambiente', false);
     }
   });
 
