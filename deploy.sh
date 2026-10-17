@@ -2,7 +2,8 @@
 #
 # Publica o site institucional no container do Proxmox.
 #
-# O site é uma página só mais as fotos que ela usa, servidas por nginx. O
+# O site é uma página, as fotos que ela usa e as duas páginas legais
+# (/termos/ e /privacidade/), servidas por nginx. O
 # deploy, portanto, é copiar esses arquivos para dentro do container e conferir
 # que o nginx continua de pé — não há build, não há dependência, não há passo
 # que possa falhar pela metade.
@@ -85,6 +86,20 @@ if [[ -d "$ASSETS_DIR" ]]; then
     run ssh "$PVE_HOST" "rm -f $staging"
   done
 fi
+
+# As páginas legais antes da principal, pela mesma razão das fotos: a página
+# nova tem a caixa de aceite apontando para elas, e o link não pode chegar
+# antes do destino. São geradas por tools/legal.py a partir do sistema.
+for page in termos privacidade; do
+  src="$LOCAL_DIR/mishpat/$page/index.html"
+  [[ -f "$src" ]] || { echo "erro: $src não existe — rode tools/legal.py" >&2; exit 1; }
+  echo "→ enviando /$page/"
+  staging="/tmp/belia-$page-$$.html"
+  run ssh "$PVE_HOST" "pct exec $CT_ID -- mkdir -p $REMOTE_ROOT/$page"
+  run scp -q "$src" "$PVE_HOST:$staging"
+  run ssh "$PVE_HOST" "pct push $CT_ID $staging $REMOTE_ROOT/$page/index.html --perms 644"
+  run ssh "$PVE_HOST" "rm -f $staging"
+done
 
 STAGING="/tmp/belia-site-$$.html"
 echo "→ enviando a página para o host"

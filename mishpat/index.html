@@ -39,9 +39,13 @@
   // aparece abaixo é a que está gravada no painel da Belia, e não uma cópia
   // que alguém precisa lembrar de atualizar aqui.
   window.BELIA = {
-    appUrl: 'https://appteste.beliasoftware.com',
-    apiUrl: 'https://appteste.beliasoftware.com/api',
+    appUrl: 'https://mishpat.beliasoftware.com',
+    apiUrl: 'https://mishpat.beliasoftware.com/api',
     contactEmail: 'contato@beliasoftware.com',
+    // A versão dos Termos que esta página mostra. Muda junto com o texto em
+    // /termos e com `platform.TermsVersion` no sistema: o cadastro grava a
+    // versão que a pessoa teve diante de si, e recusa se as duas divergirem.
+    termsVersion: '1.0',
   };
 
   // Fora de produção, o sistema é o da máquina. `file:` entra na conta de
@@ -595,6 +599,60 @@ svg { display: block; }
 .form-submit:hover:not(:disabled) { background: var(--navy-950); transform: translateY(-1px); }
 .form-submit:disabled { opacity: 0.7; cursor: default; }
 .form-foot { font-size: 12.5px; color: var(--text-muted); text-align: center; text-wrap: pretty; }
+.consent { display: grid; grid-template-columns: 18px 1fr; gap: 10px; align-items: start; font-size: 13.5px; line-height: 1.5; color: var(--text-muted); }
+.consent input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--navy-800); cursor: pointer; }
+.consent input[aria-invalid="true"] { outline: 2px solid var(--danger-600); outline-offset: 2px; }
+.consent a { color: var(--text-strong); text-decoration: underline; text-underline-offset: 2px; }
+.consent .err { grid-column: 2; }
+.consent .read-hint { grid-column: 2; font-size: 12.5px; color: var(--text-subtle); }
+.consent button.linkish { all: unset; color: var(--text-strong); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.consent button.linkish:focus-visible { box-shadow: var(--focus-ring); border-radius: 4px; }
+
+/* ─── Leitura dos Termos ─────────────────────────────────────── */
+.terms-dlg { width: min(820px, calc(100vw - 32px)); max-height: min(88vh, 900px); padding: 0; border: none; border-radius: 18px; background: var(--neutral-0); color: var(--text-body); box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.45); overflow: hidden; }
+.terms-dlg[open] { display: flex; flex-direction: column; }
+.terms-dlg::backdrop { background: rgb(10 14 22 / 0.55); }
+.terms-head, .terms-toc, .terms-foot { flex: none; }
+.terms-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); }
+.terms-head h2 { font: 600 20px/1.2 var(--font-serif); color: var(--text-strong); }
+.terms-close { all: unset; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 999px; cursor: pointer; color: var(--text-muted); font-size: 22px; line-height: 1; }
+.terms-close:hover { background: var(--neutral-100); color: var(--text-strong); }
+.terms-close:focus-visible { box-shadow: var(--focus-ring); }
+.terms-toc { display: flex; gap: 6px; overflow-x: auto; padding: 10px 20px; border-bottom: 1px solid var(--border-subtle); background: var(--neutral-50); scrollbar-width: thin; }
+.terms-toc button { all: unset; flex: none; padding: 4px 10px; border-radius: 999px; font-size: 12.5px; color: var(--text-muted); border: 1px solid var(--border-subtle); background: var(--neutral-0); cursor: pointer; white-space: nowrap; }
+.terms-toc button:hover { color: var(--text-strong); border-color: var(--border-default); }
+.terms-toc button:focus-visible { box-shadow: var(--focus-ring); }
+.terms-body { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 28px 32px; font-size: 15px; line-height: 1.7; }
+.terms-body:focus-visible { box-shadow: inset var(--focus-ring); border-radius: 0; }
+.terms-body h1 { font: 700 26px/1.2 var(--font-serif); color: var(--text-strong); margin: 20px 0 4px; }
+.terms-body h1 + p { font-size: 13px; color: var(--text-muted); }
+.terms-body h2 { font: 600 20px/1.25 var(--font-serif); color: var(--text-strong); margin: 32px 0 10px; scroll-margin-top: 12px; }
+.terms-body h3 { font-size: 15.5px; font-weight: 600; color: var(--text-strong); margin: 24px 0 6px; }
+.terms-body p, .terms-body ul, .terms-body .table { margin: 0 0 12px; }
+.terms-body ul { padding-left: 20px; list-style: disc; }
+.terms-body li { margin-bottom: 4px; }
+.terms-body hr { border: 0; border-top: 1px solid var(--border-subtle); margin: 24px 0; }
+.terms-body code { font: 13px var(--font-mono); background: var(--neutral-100); padding: 1px 5px; border-radius: 4px; }
+.terms-body a { color: var(--navy-800); text-decoration: underline; }
+.terms-body .table { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: 10px; }
+.terms-body table { border-collapse: collapse; width: 100%; font-size: 13.5px; line-height: 1.5; }
+.terms-body th, .terms-body td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--border-subtle); }
+.terms-body th { background: var(--neutral-50); font-weight: 600; color: var(--text-strong); }
+.terms-body .annex { margin-top: 40px; padding-top: 4px; border-top: 3px solid var(--navy-800); }
+.terms-msg { padding: 32px 0; color: var(--text-muted); }
+.terms-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; padding: 14px 20px; border-top: 1px solid var(--border-subtle); background: var(--neutral-50); }
+.terms-progress { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted); min-width: 0; }
+.terms-bar { width: 96px; height: 4px; border-radius: 999px; background: var(--neutral-200); overflow: hidden; flex: none; }
+.terms-bar i { display: block; height: 100%; width: 0; background: var(--navy-800); transition: width 120ms linear; }
+.terms-accept { height: 44px; padding: 0 22px; border: none; border-radius: 999px; background: var(--navy-800); color: var(--neutral-0); font: 600 15px var(--font-sans); cursor: pointer; }
+.terms-accept:disabled { background: var(--neutral-300); color: var(--neutral-600); cursor: not-allowed; }
+.terms-accept:not(:disabled):hover { background: var(--navy-950); }
+@media (max-width: 560px) {
+  .terms-dlg { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+  .terms-body { padding: 4px 16px 24px; }
+  .terms-foot { padding: 12px 16px; }
+  .terms-accept { width: 100%; }
+}
 .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .done { display: flex; flex-direction: column; gap: 12px; text-align: center; }
 .done .check { width: 52px; height: 52px; margin: 0 auto; border-radius: 50%; background: color-mix(in oklab, var(--success-600) 12%, transparent); color: var(--success-600); display: grid; place-items: center; }
@@ -1139,6 +1197,22 @@ svg { display: block; }
             <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
           </div>
 
+          <!-- O aceite é a contratação: o sistema grava a versão, a data, o IP e
+               se o texto foi lido até o fim. A caixa só se marca pelo "Li e
+               aceito" da janela de leitura, e nunca vem marcada. A Política fica
+               de fora da trava: ela informa, não se aceita (LGPD, art. 9º). -->
+          <div class="field consent">
+            <input id="acceptTerms" name="acceptTerms" type="checkbox" aria-describedby="read-hint">
+            <label for="acceptTerms" style="font-weight:400; color:inherit; font-size:inherit">
+              Li e aceito, em nome do escritório, os
+              <a href="/termos/" target="_blank" rel="noopener" data-open-terms>Termos de Uso</a>,
+              com o contrato de tratamento de dados anexo a eles, e declaro ter lido a
+              <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>.
+            </label>
+            <p class="read-hint" id="read-hint">Abra os Termos e role até o fim para aceitar.</p>
+            <p class="err" id="err-acceptTerms" hidden></p>
+          </div>
+
           <button class="form-submit" type="submit" id="submit">
             Criar meu ambiente <span aria-hidden="true">→</span>
           </button>
@@ -1160,6 +1234,24 @@ svg { display: block; }
 </section>
 
 </main>
+
+<dialog class="terms-dlg" id="terms-dlg" aria-labelledby="terms-title">
+  <div class="terms-head">
+    <h2 id="terms-title">Termos de Uso</h2>
+    <button class="terms-close" type="button" id="terms-close" aria-label="Fechar sem aceitar">&times;</button>
+  </div>
+  <nav class="terms-toc" id="terms-toc" aria-label="Seções dos Termos"></nav>
+  <div class="terms-body" id="terms-body" tabindex="0" aria-label="Texto dos Termos de Uso">
+    <p class="terms-msg">Carregando os Termos…</p>
+  </div>
+  <div class="terms-foot">
+    <div class="terms-progress">
+      <span class="terms-bar" aria-hidden="true"><i id="terms-bar"></i></span>
+      <span id="terms-status" aria-live="polite">Role até o fim para aceitar.</span>
+    </div>
+    <button class="terms-accept" type="button" id="terms-accept" disabled>Li e aceito</button>
+  </div>
+</dialog>
 
 <a class="to-top" id="to-top" href="#topo" aria-label="Voltar ao topo da página">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -1207,11 +1299,18 @@ svg { display: block; }
     <div class="footer-col">
       <b>Contato</b>
       <a href="#" id="mail-foot">E-mail</a>
+      <a href="mailto:privacidade@beliasoftware.com">Privacidade e dados</a>
+    </div>
+
+    <div class="footer-col">
+      <b>Legal</b>
+      <a href="/termos/">Termos de Uso</a>
+      <a href="/privacidade/">Política de Privacidade</a>
     </div>
   </div>
 
   <div class="footer-bottom">
-    &copy; <span id="year">2026</span> Belia Software. Todos os direitos reservados.
+    &copy; <span id="year">2026</span> BELIA SOFTWARE LTDA · CNPJ 66.360.810/0001-67. Todos os direitos reservados.
   </div>
 </footer>
 
@@ -1346,7 +1445,7 @@ svg { display: block; }
 
   const submit = $('submit');
   const formError = $('form-error');
-  const fields = ['firmName', 'ownerName', 'ownerEmail', 'password', 'phone', 'plan'];
+  const fields = ['firmName', 'ownerName', 'ownerEmail', 'password', 'phone', 'plan', 'acceptTerms'];
 
   // O rótulo do botão carrega a seta; trocá-lo por texto puro a perderia.
   const setSubmit = (label, busy) => {
@@ -1399,6 +1498,7 @@ svg { display: block; }
     if (data.ownerName.length < 3) problems.push(['ownerName', 'Informe o seu nome completo.']);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.ownerEmail)) problems.push(['ownerEmail', 'Informe um e-mail válido.']);
     if (data.password.length < 8) problems.push(['password', 'A senha precisa de ao menos 8 caracteres.']);
+    if (!data.acceptTerms) problems.push(['acceptTerms', 'Para criar a conta, abra os Termos de Uso, leia até o fim e aceite.']);
     return problems;
   }
 
@@ -1423,6 +1523,9 @@ svg { display: block; }
       phone: $('phone').value.trim(),
       plan: planSelect.value,
       website: $('website').value,
+      acceptTerms: $('acceptTerms').checked,
+      termsVersion: cfg.termsVersion,
+      termsReadToEnd: terms.readToEnd,
     };
 
     const problems = localProblems(data);
@@ -1493,6 +1596,114 @@ svg { display: block; }
     return String(value).replace(/[&<>"']/g, (c) =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
+
+  // ─── Leitura dos Termos ──────────────────────────────────────────────
+  // A caixa de aceite não se marca direto: clicar nela, ou no link, abre o
+  // texto, e o "Li e aceito" só acende quando a pessoa chega ao fim. É o "Li e
+  // aceito" que marca a caixa. Se o texto não carregar, a janela oferece abri-lo
+  // numa aba e libera o aceite — a trava não pode custar o cadastro — e o
+  // registro diz que a leitura até o fim não foi verificada.
+  const terms = { loaded: false, readToEnd: false, unlocked: false };
+  const dlg = $('terms-dlg');
+  const body = $('terms-body');
+  const toc = $('terms-toc');
+  const accept = $('terms-accept');
+  const status = $('terms-status');
+  const bar = $('terms-bar');
+  const box = $('acceptTerms');
+
+  async function loadTerms() {
+    if (terms.loaded) return;
+    try {
+      const res = await fetch('/termos/', { headers: { Accept: 'text/html' } });
+      if (!res.ok) throw new Error(String(res.status));
+      const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+      const main = doc.querySelector('main');
+      if (!main) throw new Error('sem conteúdo');
+      // Os links internos apontam para a página /termos/ — aqui eles rolam a
+      // janela, senão um clique em "Anexo I" trocaria de página no meio do
+      // cadastro.
+      for (const a of main.querySelectorAll('a[href^="/termos/#"], a[href^="#"]')) {
+        a.setAttribute('href', '#' + a.getAttribute('href').split('#')[1]);
+      }
+      body.innerHTML = '';
+      body.append(...main.childNodes);
+      terms.loaded = true;
+
+      toc.innerHTML = '';
+      for (const h of body.querySelectorAll(':scope > h2, .annex > h1')) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = h.closest('.annex') ? 'Anexo I' : h.textContent.replace(/^\d+\.\s*/, '');
+        b.addEventListener('click', () => h.scrollIntoView({ block: 'start' }));
+        toc.append(b);
+      }
+      body.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const target = body.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ block: 'start' }); }
+      });
+      checkScroll();
+    } catch {
+      body.innerHTML = `<p class="terms-msg">Não foi possível carregar o texto aqui.
+        <a href="/termos/" target="_blank" rel="noopener" id="terms-fallback">Abra os Termos de Uso numa nova aba</a>,
+        leia e volte para aceitar.</p>`;
+      toc.innerHTML = '';
+      $('terms-fallback').addEventListener('click', () => unlock(false));
+    }
+  }
+
+  function unlock(readToEnd) {
+    if (terms.unlocked && !readToEnd) return;
+    terms.unlocked = true;
+    if (readToEnd) terms.readToEnd = true;
+    accept.disabled = false;
+    status.textContent = readToEnd ? 'Você chegou ao fim do texto.' : 'Leia o texto na outra aba antes de aceitar.';
+  }
+
+  // Fim do texto é a última linha à vista, com folga para o arredondamento de
+  // tela de alta densidade. Texto que cabe inteiro na janela conta como lido.
+  function checkScroll() {
+    if (!terms.loaded) return;
+    const max = body.scrollHeight - body.clientHeight;
+    const ratio = max <= 0 ? 1 : Math.min(1, body.scrollTop / max);
+    bar.style.width = Math.round(ratio * 100) + '%';
+    if (max - body.scrollTop <= 8) unlock(true);
+  }
+  body.addEventListener('scroll', checkScroll, { passive: true });
+
+  function openTerms() {
+    dlg.showModal();
+    body.focus({ preventScroll: true });
+    loadTerms();
+  }
+
+  for (const link of document.querySelectorAll('[data-open-terms]')) {
+    link.addEventListener('click', (e) => { e.preventDefault(); openTerms(); });
+  }
+
+  // Marcar à mão abre a leitura; desmarcar continua livre, e quem já leu marca
+  // de novo sem ter de rolar outra vez.
+  box.addEventListener('click', (e) => {
+    if (box.checked && !terms.unlocked) {
+      e.preventDefault();
+      openTerms();
+    }
+  });
+
+  accept.addEventListener('click', () => {
+    box.checked = true;
+    box.dispatchEvent(new Event('input', { bubbles: true }));
+    $('read-hint').textContent = terms.readToEnd
+      ? 'Termos lidos e aceitos.'
+      : 'Termos aceitos.';
+    dlg.close();
+    box.focus();
+  });
+
+  $('terms-close').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
 })();
 </script>
 
