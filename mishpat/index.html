@@ -513,6 +513,15 @@ svg { display: block; }
 .plan-pop .plan-price b { color: var(--neutral-0); }
 .plan-pop .plan-items { border-top-color: color-mix(in oklab, white 14%, transparent); }
 .plan-pop .plan-items li { color: var(--navy-100); }
+/* Mensal ou anual. A chave fica acima da tabela, e não dentro de cada plano:
+   a pergunta é uma só para todos. */
+.cycle-toggle { display: inline-flex; align-self: center; gap: 4px; padding: 4px; border-radius: 999px; background: var(--neutral-100); border: 1px solid var(--border-subtle); }
+.cycle-toggle[hidden] { display: none; }
+.cycle-toggle button { border: 0; background: transparent; cursor: pointer; font: inherit; font-size: 14.5px; font-weight: 600; color: var(--text-muted); padding: 10px 20px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; }
+.cycle-toggle button[aria-checked="true"] { background: var(--surface-card); color: var(--navy-900); box-shadow: 0 1px 4px color-mix(in oklab, var(--navy-950) 12%, transparent); }
+.cycle-toggle .save { font-size: 12px; font-weight: 600; color: var(--success-600); background: color-mix(in oklab, var(--success-600) 12%, transparent); padding: 3px 8px; border-radius: 999px; }
+.plan-equiv { font-size: 13.5px; color: var(--text-muted); margin-top: -12px; }
+.plan-pop .plan-equiv { color: var(--navy-200); }
 .plan-pop .plan-items li::before { background: var(--accent); }
 .plan-badge { position: absolute; top: 22px; left: 30px; padding: 5px 13px; border-radius: 999px; background: var(--accent); color: var(--neutral-0); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; z-index: 1; }
 .plans-foot { font-size: 14px; color: var(--text-muted); text-wrap: pretty; }
@@ -1027,6 +1036,11 @@ svg { display: block; }
       <p class="lead">Cada plano acompanha um tamanho de escritório. Chegou ao teto, nada do que você cadastrou é afetado — só fale com a gente para subir.</p>
     </div>
 
+    <div class="cycle-toggle" id="cycle-toggle" role="radiogroup" aria-label="Ciclo de pagamento" hidden>
+      <button type="button" role="radio" aria-checked="true" data-cycle="monthly">Mensal</button>
+      <button type="button" role="radio" aria-checked="false" data-cycle="yearly">Anual <span class="save">2 meses grátis</span></button>
+    </div>
+
     <div class="plans-grid" id="plans" aria-live="polite" aria-busy="true">
       <div class="plans-loading"><span class="spinner" role="status" aria-label="Carregando os planos"></span></div>
     </div>
@@ -1048,7 +1062,7 @@ svg { display: block; }
       <div class="guarantee">
         <span class="rule" aria-hidden="true"></span>
         <h3>Sem fidelidade</h3>
-        <p>Mensal. Você sai no mês seguinte se quiser, sem multa e sem conversa de retenção.</p>
+        <p>No plano mensal, você sai no mês seguinte se quiser, sem multa e sem conversa de retenção.</p>
       </div>
       <div class="guarantee">
         <span class="rule" aria-hidden="true"></span>
@@ -1383,7 +1397,39 @@ svg { display: block; }
   const usersLabel = (n) => (n > 0 ? (n === 1 ? '1 conta de acesso' : n + ' contas de acesso') : 'Contas de acesso sem limite');
   const casesLabel = (n) => (n > 0 ? `${num(n)} casos ativos` : 'Casos ativos sem limite');
 
+  // O ciclo da vitrine. O cadastro é sempre o teste de 14 dias; mensal ou
+  // anual se escolhe dentro do sistema, antes da primeira fatura — a chave
+  // aqui só mostra o preço de cada um.
+  let cycle = 'monthly';
+  let lastItems = [];
+  const cycleToggle = $('cycle-toggle');
+
+  // O "equivale a" tem centavos de verdade (R$ 40,83), e o formatador da
+  // vitrine os esconde — R$ 82,5 parece erro de digitação.
+  const cents = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
+
+  function priceBlock(p) {
+    if (cycle === 'yearly' && p.annualPrice > 0) {
+      const saving = p.price * 12 - p.annualPrice;
+      return `<div class="plan-price"><b>${brl.format(p.annualPrice)}</b><span>/ano</span></div>
+        <span class="plan-equiv">equivale a ${cents.format(p.annualPrice / 12)}/mês${saving > 0 ? ` · economize ${brl.format(saving)}` : ''}</span>`;
+    }
+    return `<div class="plan-price"><b>${brl.format(p.price)}</b><span>/mês</span></div>`;
+  }
+
+  for (const btn of cycleToggle.querySelectorAll('button[data-cycle]')) {
+    btn.addEventListener('click', () => {
+      cycle = btn.dataset.cycle;
+      for (const b of cycleToggle.querySelectorAll('button')) b.setAttribute('aria-checked', String(b === btn));
+      renderPlans(lastItems);
+    });
+  }
+
   function renderPlans(items) {
+    lastItems = items;
+    // Sem plano com oferta anual, a chave não aparece: oferecer uma escolha
+    // que não muda nada é ruído.
+    cycleToggle.hidden = !items.some((p) => p.annualPrice > 0);
     plansBox.innerHTML = items.map((p) => `
       <article class="plan${p.popular ? ' plan-pop' : ''}">
         ${p.popular ? '<span class="plan-badge">Mais escolhido</span>' : ''}
@@ -1391,7 +1437,7 @@ svg { display: block; }
           <span class="plan-name">${esc(p.label)}</span>
           <span class="plan-profile">${esc(p.highlight || 'Para o seu escritório')}</span>
         </div>
-        <div class="plan-price"><b>${brl.format(p.price)}</b><span>/mês</span></div>
+        ${priceBlock(p)}
         <ul class="plan-items">
           <li>${esc(usersLabel(p.users))}</li>
           <li>${esc(casesLabel(p.cases))}</li>
